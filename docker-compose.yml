@@ -1,0 +1,37 @@
+version: "2"
+services:
+  rabbit:
+    container_name: rabbit
+    image: rabbitmq:3-management
+    ports:
+        - "15673:15672"
+        - "5673:5672"
+    restart: always
+
+  auth:
+    container_name: auth
+    build: ./services/auth
+    depends_on:
+      - rabbit
+    links:
+        - rabbit
+    environment:
+        RABBIT_PASSWORD: "guest"
+        RABBIT_USER: "guest"
+        RABBIT_HOST: "rabbit"
+        RABBIT_PORT: "5672"
+        RABBIT_MANAGEMENT_PORT: "15672"
+
+  compute:
+    container_name: compute
+    build: ./services/compute
+    depends_on:
+      - rabbit
+    links:
+        - rabbit
+    environment:
+        RABBIT_PASSWORD: "guest"
+        RABBIT_USER: "guest"
+        RABBIT_HOST: "rabbit"
+        RABBIT_PORT: "5672"
+        RABBIT_MANAGEMENT_PORT: "15672"
