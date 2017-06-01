@@ -8,19 +8,39 @@ services:
         - "5673:5672"
     restart: always
 
+  postgres:
+    container_name: auth-db
+    image: postgres
+    ports:
+        - "5433:5432"
+    environment:
+        POSTGRES_DB: "users"
+        POSTGRES_PASSWORD: "password"
+        POSTGRES_USER: "postgres"
+    restart: always
+
   auth:
     container_name: auth
     build: ./services/auth
+    volumes:
+     - ./services/auth/auth:/code/auth
     depends_on:
       - rabbit
+      - postgres
     links:
         - rabbit
+        - "postgres:auth-db"
     environment:
         RABBIT_PASSWORD: "guest"
         RABBIT_USER: "guest"
         RABBIT_HOST: "rabbit"
         RABBIT_PORT: "5672"
         RABBIT_MANAGEMENT_PORT: "15672"
+        DB_PASSWORD: "password"
+        DB_USER: "postgres"
+        DB_HOST: "postgres"
+        DB_NAME: "users"
+        ENV: "development"
 
   compute:
     container_name: compute

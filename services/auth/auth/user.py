@@ -1,6 +1,7 @@
 from nameko.rpc import rpc
+from models import DeclarativeBase, User
 
-class User(object):
+class Auth(object):
     name = "auth"
 
     @rpc

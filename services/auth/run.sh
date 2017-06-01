@@ -18,4 +18,9 @@ while ! is_ready; do
 done
 
 # Run Service
-nameko run --config config.yml user
+python setup_db.py
+if [ "${ENV}" = "development" ]; then
+    watchmedo auto-restart -d $PWD -R -- nameko run --config config.yml auth.user
+else
+    nameko run --config config.yml auth.user
+fi
