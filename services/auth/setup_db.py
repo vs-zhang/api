@@ -5,7 +5,6 @@ from alembic.config import Config
 from alembic import command
 dir_path = os.path.dirname(os.path.realpath(__file__))
 alembic_cfg = Config(dir_path + "/alembic.ini")
-print dir_path
 def get_url():
     return (
         "postgresql://{db_user}:{db_pass}@{db_host}:"
