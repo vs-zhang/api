@@ -10,7 +10,7 @@ function_commands:
       --host:
         default: '127.0.0.1'
       --use_reloader:
-        default: false
+        default: true
         is_flag: true
 help_text: This is the {project_name} interactive shell
 project_name: Nameko Service Send Email API

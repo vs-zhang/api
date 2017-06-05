@@ -37,7 +37,6 @@ class AuthService(object):
     @rpc
     def login_with_token(self, token):
         user_id = self._decode_auth_token(token)
-        print user_id
         user = self.db.query(User).get(user_id)
         return UserSchema().dump(user).data
 

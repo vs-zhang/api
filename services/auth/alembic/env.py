@@ -9,7 +9,6 @@ from logging.config import fileConfig
 # access to the values within the .ini file in use.
 current_path = os.path.dirname(os.path.abspath(__file__))
 ROOT_PATH = os.path.join(current_path, '..')
-print ROOT_PATH
 sys.path.append(ROOT_PATH)
 from auth import models
 
