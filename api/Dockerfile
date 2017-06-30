@@ -1,14 +1,12 @@
-FROM python:2.7-alpine
+FROM python:2.7-wheezy
 
-RUN apk update && apk add build-base postgresql-dev libffi-dev
+ENV CODE_DIR /code
 
-ENV WORK_DIR /code
+RUN mkdir -p $CODE_DIR
 
-RUN mkdir -p $WORK_DIR
+WORKDIR $CODE_DIR
 
-WORKDIR $WORK_DIR
-
-ADD . $WORK_DIR
+ADD . $CODE_DIR
 
 RUN pip install -r requirements.txt
 

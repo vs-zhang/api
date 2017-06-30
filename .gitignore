@@ -1,4 +1,4 @@
-api/api_env
+api_gateway/api_env
 .idea/
 *_env
 *.pyc

@@ -1,4 +1,6 @@
 from datetime import datetime
+
+import enum
 import sqlalchemy as sa
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import PasswordType
@@ -37,3 +39,18 @@ class User(BaseModel):
         onupdate=datetime.utcnow,
         nullable=False
     )
+
+
+class Client(BaseModel):
+    """ Client Model for storing client app related details """
+    __tablename__ = "clients"
+
+    id = sa.Column(sa.Integer, primary_key=True)
+    cid = sa.Column(sa.String(50), unique=True, nullable=False)
+    secret = sa.Column(sa.String(255), unique=True, nullable=False)
+    name = sa.Column(sa.String(255), unique=True, nullable=False)
+    application_type = sa.Column(sa.String(255), unique=True, nullable=False)
+    active = sa.Column(sa.Boolean, unique=False, nullable=False, default=True)
+    refresh_token_time = sa.Column(sa.Numeric(8, 0), unique=False, nullable=False, default=14400)
+    allowed_origin = sa.Column(sa.String(255), unique=False, nullable=False, default='*')
+

@@ -8,7 +8,7 @@ function_commands:
       --port:
         default: 5000
       --host:
-        default: '127.0.0.1'
+        default: '0.0.0.0'
       --use_reloader:
         default: true
         is_flag: true

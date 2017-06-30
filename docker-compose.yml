@@ -19,6 +19,25 @@ services:
         POSTGRES_USER: "postgres"
     restart: always
 
+  api:
+    container_name: api
+    build: ./api
+    ports:
+        - "5001:5000"
+    volumes:
+     - ./api:/code/
+    depends_on:
+      - rabbit
+    links:
+        - rabbit
+    environment:
+        RABBIT_PASSWORD: "guest"
+        RABBIT_USER: "guest"
+        RABBIT_HOST: "rabbit"
+        RABBIT_PORT: "5672"
+        RABBIT_MANAGEMENT_PORT: "15672"
+        ENV: "development"
+
   auth:
     container_name: auth
     build: ./services/auth
