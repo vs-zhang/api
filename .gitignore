@@ -3,3 +3,4 @@ api_gateway/api_env
 *_env
 *.pyc
 .env
+client/node_modules
