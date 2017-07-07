@@ -54,3 +54,23 @@ class Client(BaseModel):
     refresh_token_time = sa.Column(sa.Numeric(8, 0), unique=False, nullable=False, default=14400)
     allowed_origin = sa.Column(sa.String(255), unique=False, nullable=False, default='*')
 
+
+
+class RefreshToken(BaseModel):
+    """ RefreshToken Model for storing refresh token related details """
+    __tablename__ = "refresh_tokens"
+
+    id = sa.Column(sa.Integer, primary_key=True)
+    token = sa.Column(sa.String(50), unique=True, nullable=False)
+    issued_at = sa.Column(
+        sa.DateTime,
+        default=datetime.utcnow,
+        nullable=False
+    )
+    expired_at = sa.Column(
+        sa.DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow,
+        nullable=False
+    )
+

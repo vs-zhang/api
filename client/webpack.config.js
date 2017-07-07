@@ -4,20 +4,23 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-source-map',
-  entry: ['./src/main.js'],
+  entry: ['./src/main.jsx'],
   devServer: {
     hot: true,
     inline: true,
     host: '0.0.0.0',
     publicPath: '/',
     historyApiFallback: true,
-    port: 5002,
+    port: 8080,
     contentBase: './src',
   },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
     publicPath: '/'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
   },
   module: {
     loaders: [
@@ -26,7 +29,7 @@ module.exports = {
         loader: 'style-loader!css-loader'
       },
       {
-        test: /\.js$/,
+        test: /.jsx?$/,
         exclude: [
           /node_modules/
         ],
