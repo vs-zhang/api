@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
-import Sidebar from '../../components/sidebar/sidebar';
-import MainMap from '../../components/main/map';
+import Sidebar from '../../Components/Sidebar/Sidebar';
+import MainMap from '../../Components/Main/Map';
 import { locationActions, getLocation } from '../../../core/location';
 import { heroesActions, getHeroes } from '../../../core/heroes';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router';
-import HomePage from './pages/home/home';
+import HomePage from './Pages/Home/Home';
 
 const Layout = () => (
   <div className="docs-root">

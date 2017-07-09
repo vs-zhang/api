@@ -14,7 +14,7 @@ export default function Root() {
     <Provider store={store}>
       <HashRouter>
         {routers}
-      </HashRouter >
+      </HashRouter>
     </Provider>
   );
 }

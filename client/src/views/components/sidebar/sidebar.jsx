@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import HeroCard from '../heroCard/heroCard';
+import HeroCard from '../HeroCard/HeroCard';
 
 class Sidebar extends Component {
   static propTypes = {

@@ -1,7 +1,5 @@
 FROM node:boron
 
-COPY package.json $
-
 ENV CODE_DIR /code
 
 RUN mkdir -p $CODE_DIR
