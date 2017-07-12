@@ -1,9 +1,11 @@
 from datetime import datetime
 
 import enum
+import uuid
 import sqlalchemy as sa
+from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy_utils import PasswordType
+from sqlalchemy_utils import PasswordType, ChoiceType, UUIDType
 
 
 Base = declarative_base()
@@ -39,6 +41,12 @@ class User(BaseModel):
         onupdate=datetime.utcnow,
         nullable=False
     )
+    tokens = relationship("RefreshToken", back_populates="user")
+
+
+class ApplicationType(enum.Enum):
+    webapp = 1
+    mobile = 2
 
 
 class Client(BaseModel):
@@ -46,31 +54,27 @@ class Client(BaseModel):
     __tablename__ = "clients"
 
     id = sa.Column(sa.Integer, primary_key=True)
-    cid = sa.Column(sa.String(50), unique=True, nullable=False)
+    cid = sa.Column(sa.String(50), unique=True, nullable=False, index=True)
     secret = sa.Column(sa.String(255), unique=True, nullable=False)
     name = sa.Column(sa.String(255), unique=True, nullable=False)
-    application_type = sa.Column(sa.String(255), unique=True, nullable=False)
+    application_type = sa.Column(ChoiceType(ApplicationType, impl=sa.Integer()), unique=True, nullable=False, default=1)
     active = sa.Column(sa.Boolean, unique=False, nullable=False, default=True)
     refresh_token_time = sa.Column(sa.Numeric(8, 0), unique=False, nullable=False, default=14400)
     allowed_origin = sa.Column(sa.String(255), unique=False, nullable=False, default='*')
-
+    tokens = relationship("RefreshToken", back_populates="client")
 
 
 class RefreshToken(BaseModel):
     """ RefreshToken Model for storing refresh token related details """
     __tablename__ = "refresh_tokens"
 
-    id = sa.Column(sa.Integer, primary_key=True)
-    token = sa.Column(sa.String(50), unique=True, nullable=False)
+    id = sa.Column(UUIDType(binary=False), primary_key=True, default=uuid.uuid4)
+    user_id = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
+    user = relationship("User", back_populates="tokens")
+    client_id = sa.Column(sa.Integer, sa.ForeignKey('clients.id'))
+    client = relationship("Client", back_populates="tokens")
     issued_at = sa.Column(
         sa.DateTime,
         default=datetime.utcnow,
         nullable=False
     )
-    expired_at = sa.Column(
-        sa.DateTime,
-        default=datetime.utcnow,
-        onupdate=datetime.utcnow,
-        nullable=False
-    )
-
