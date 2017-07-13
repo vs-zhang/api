@@ -1,10 +1,11 @@
 from nameko.rpc import rpc
-from models import Base, BaseModel, User
+from models import Base, BaseModel, User, Client, RefreshToken
 from schemas import UserSchema
 from nameko_sqlalchemy import DatabaseSession
 import jwt
 import os
 import datetime
+import pdb
 
 class AuthService(object):
     name = "auth"
@@ -29,7 +30,24 @@ class AuthService(object):
         return UserSchema().dump(user).data
 
     @rpc
+    def get_client(self, id):
+        client = self.db.query(Client).get(id)
+        pdb.set_trace();
+
+    @rpc
+    def create_client(self, cid, name, secret):
+        client = Client(
+            cid = cid,
+            name = name,
+            secret = secret
+        )
+        self.db.add(client)
+        self.db.commit()
+        pdb.set_trace();
+
+    @rpc
     def login(self, username, pwd):
+        pdb.set_trace()
         user = self.db.query(User).filter_by(username = username).first()
         if user.password == pwd:
             return self._encode_auth_token(user.id)

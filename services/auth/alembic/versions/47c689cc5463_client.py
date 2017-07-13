@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('cid', sa.String(length=50), nullable=False),
     sa.Column('secret', sa.String(length=255), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=False),
-    sa.Column('application_type', sqlalchemy_utils.types.choice.ChoiceType(ApplicationType), nullable=False),
+    sa.Column('application_type', sqlalchemy_utils.types.choice.ChoiceType(ApplicationType, impl=sa.Integer()), nullable=False),
     sa.Column('active', sa.Boolean(), nullable=False),
     sa.Column('refresh_token_time', sa.Numeric(precision=8, scale=0), nullable=False),
     sa.Column('allowed_origin', sa.String(length=255), nullable=False),
