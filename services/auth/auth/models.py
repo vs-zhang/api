@@ -2,10 +2,11 @@ from datetime import datetime
 
 import enum
 import uuid
+from ipaddress import ip_address
 import sqlalchemy as sa
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy_utils import PasswordType, ChoiceType, UUIDType
+from sqlalchemy_utils import PasswordType, ChoiceType, UUIDType, IPAddressType
 
 
 Base = declarative_base()
@@ -78,3 +79,5 @@ class RefreshToken(BaseModel):
         default=datetime.utcnow,
         nullable=False
     )
+    ip_address = sa.Column(IPAddressType)
+    user_agent = sa.Column(sa.String(255), unique=False, nullable=True)

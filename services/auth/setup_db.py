@@ -36,21 +36,25 @@ with engine.begin() as connection:
 #     result = connection.execute("select username from users")
 #     for row in result:
 #         print("username:", row['username'])
-#
-#
-# with engine.begin() as connection:
-#     clients = ({"cid": "webapp", "secret": "secret", "name": "web app", "application_type": 1, "active": True, "refresh_token_time": 14400, "allowed_origin": "*"},)
-#     statement = text("""INSERT INTO clients(cid, secret, name, application_type, active, refresh_token_time, allowed_origin) VALUES(:cid, :secret, :name, :application_type, :active, :refresh_token_time, :allowed_origin)""")
-#     for client in clients:
-#         connection.execute(statement, **client)
-#     result = connection.execute("select name from clients")
-#     for row in result:
-#         print("name:", row['name'])
+
+with engine.begin() as connection:
+    statement = text("""select * from clients where name = (:name) """)
+    result = connection.execute(statement, {"name": "web app"})
+    if len(result.fetchall()) == 0:
+        clients = ({"cid": "webapp", "secret": "secret", "name": "web app", "application_type": 1, "active": True, "refresh_token_time": 14400, "allowed_origin": "*"},)
+        statement = text("""INSERT INTO clients(cid, secret, name, application_type, active, refresh_token_time, allowed_origin) VALUES(:cid, :secret, :name, :application_type, :active, :refresh_token_time, :allowed_origin)""")
+        for client in clients:
+            connection.execute(statement, **client)
+        result = connection.execute("select name from clients")
+        for row in result:
+            print("name:", row['name'])
+    else:
+        print "web app already exists."
 
 
 # with engine.begin() as connection:
-#     tokens = ({"id": "f6905f67-16af-40f2-a682-b788e24a3dc3","user_id": 1, "client_id": 1, "issued_at": "2017-06-30 08:43:18.7694"},)
-#     statement = text("""INSERT INTO refresh_tokens(id, user_id, client_id, issued_at) VALUES(:id, :user_id, :client_id, :issued_at)""")
+#     tokens = ({"id": "f6905f67-16af-40f2-a682-b788e24a3dc3","user_id": 1, "client_id": 1, "issued_at": "2017-06-30 08:43:18.7694", "ip_address": "123.123.123.123", "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.66 Safari/537.36"},)
+#     statement = text("""INSERT INTO refresh_tokens(id, user_id, client_id, issued_at, ip_address, user_agent) VALUES(:id, :user_id, :client_id, :issued_at, :ip_address, :user_agent)""")
 #     for token in tokens:
 #         connection.execute(statement, **token)
 #     result = connection.execute("select id from refresh_tokens")
