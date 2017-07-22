@@ -9,7 +9,7 @@ eventlet==0.20.0
 funcsigs==1.0.2
 greenlet==0.4.12
 kombu==3.0.37
-ipaddress-1.0.18
+ipaddress==1.0.18
 Mako==1.0.6
 MarkupSafe==1.0
 marshmallow==2.13.5
