@@ -20,7 +20,7 @@ done
 # Run Service
 python setup_db.py
 if [ "${ENV}" = "development" ]; then
-    watchmedo auto-restart -d $PWD -R -- nameko run --config config.yml auth.service
+    watchmedo auto-restart -d $PWD -R -- nameko run --config config.yml auth.services
 else
-    nameko run --config config.yml auth.service
+    nameko run --config config.yml auth.services
 fi

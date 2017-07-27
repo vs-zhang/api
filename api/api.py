@@ -22,8 +22,13 @@ def signup():
 
 @app.route('/login', methods=['POST'])
 def login():
+    user_agent = request.headers.get('User-Agent')
+    ip_address = request.remote_addr
+    print user_agent
+    print ip_address
+    cid = request.headers.get('cid')
     username = request.json.get('username')
     password = request.json.get('password')
     with ClusterRpcProxy(CONFIG) as rpc:
-        result = rpc.auth.login(username, password)
+        result = rpc.auth.login(username, password, cid, ip_address, user_agent)
         return jsonify(result), 200
