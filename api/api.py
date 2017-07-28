@@ -53,9 +53,20 @@ def oauth_token():
 
 @app.route('/signup', methods=['POST'])
 def signup():
+    user_agent = request.headers.get('User-Agent')
+    ip_address = request.remote_addr
     username = request.json.get('username')
     email = request.json.get('email')
     password = request.json.get('password')
+    ecoded_cid = request.headers.get('Authorization').split(' ')[1]
     with ClusterRpcProxy(CONFIG) as rpc:
-        result = rpc.auth.create_user(username, email, password)
+        client = rpc.client.get(ecoded_cid)
+        user = rpc.user.create(username, email, password)
+        refresh_token = rpc.refresh_token.create(user['id'], client['id'], ip_address, user_agent)
+        auth_token = rpc.auth_token.encode(user['id'])
+        result = {
+            'token_type': 'bearer',
+            'access_token': auth_token,
+            'refresh_token': encode_refresh_token(refresh_token['id'])
+        }
         return jsonify(result), 200
