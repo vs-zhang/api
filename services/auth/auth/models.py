@@ -1,5 +1,4 @@
 from datetime import datetime
-
 import enum
 import uuid
 from ipaddress import ip_address

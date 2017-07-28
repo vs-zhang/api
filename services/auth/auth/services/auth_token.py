@@ -1,7 +1,7 @@
+import os
 from nameko.rpc import rpc
 from nameko_sqlalchemy import DatabaseSession
 import jwt
-import os
 import datetime
 
 class AuthTokenService(object):

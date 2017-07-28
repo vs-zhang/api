@@ -11,9 +11,9 @@ class UserService(object):
     @rpc
     def create(self, username, email, password):
         user = User(
-            username = username,
-            email = email,
-            password = password,
+            username=username,
+            email=email,
+            password=password,
         )
         self.db.add(user)
         self.db.commit()
@@ -21,21 +21,15 @@ class UserService(object):
         return user
 
     @rpc
-    def get(self, id):
-        user = self.db.query(User).get(id)
+    def get(self, user_id):
+        user = self.db.query(User).get(user_id)
         return UserSchema().dump(user).data
 
     @rpc
     def login(self, username, pwd):
-        user = self.db.query(User).filter_by(username = username).first()
+        user = self.db.query(User).filter_by(username=username).first()
         if user.password == pwd:
             return UserSchema().dump(user).data
-
-    @rpc
-    def login_with_token(self, token):
-        user_id = self._decode_auth_token(token)
-        user = self.db.query(User).get(user_id)
-        return UserSchema().dump(user).data
 
     @rpc
     def delete(self, id):
