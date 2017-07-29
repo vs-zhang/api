@@ -137,3 +137,16 @@ body {
     width: 150px;
     border-radius: 50%;
 }
+
+#app {
+    position: relative;
+    height: 100%;
+}
+
+.loader-container {
+    margin: 0;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

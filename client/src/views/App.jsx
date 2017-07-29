@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { HashRouter, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import routers from './routers';
 import './styles/app.css';
 import configureStore from '../core/store';
+import { Loader } from './Components';
 
 const store = configureStore();
 
@@ -16,15 +17,33 @@ export default class App extends Component {
     }
 
     componentDidMount() {
+        setTimeout(() => {
+            this.setState({
+                loading: false
+            });
+        }, 2000);
     }
 
     render() {
-        return (
+        const { loading } = this.state;
+        const loader = (
+            <div className="loader-container">
+                <Loader />
+            </div>
+        );
+
+        const mainApp = (
             <Provider store={store}>
                 <BrowserRouter>
                     {routers}
                 </BrowserRouter>
             </Provider>
+        );
+
+        return (
+            <div>
+                { loading ? loader : mainApp }
+            </div>
         );
     }
 }
