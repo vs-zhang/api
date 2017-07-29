@@ -1,20 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Root from './views/root';
+import App from './views/App';
 
-const root = document.getElementById('root');
+const root = document.getElementById('app');
 
 function render() {
-  ReactDOM.render(<Root />, root);
+    ReactDOM.render(<App />, root);
 }
 
 render();
 
 if (module.hot) {
-  module.hot.accept('./views/root', () => {
-    /* eslint-disable global-require */
-    const NewRoot = require('./views/root').default;
-    /* eslint-enable global-require */
-    ReactDOM.render(<NewRoot />, root);
-  });
+    module.hot.accept('./views/App', () => {
+        /* eslint-disable global-require */
+        const NewRoot = require('./views/App').default;
+        /* eslint-enable global-require */
+        ReactDOM.render(<NewRoot />, root);
+    });
 }

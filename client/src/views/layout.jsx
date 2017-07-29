@@ -4,13 +4,13 @@ import { Route } from 'react-router';
 import HomePage from './Pages/Home/Home';
 
 const Layout = () => (
-  <div className="docs-root">
-    <Route component={HomePage} />
-  </div>
+    <div className="docs-root">
+        <Route component={HomePage} />
+    </div>
 );
 
 Layout.propstype = {
-  children: PropTypes.object.isRequired,
+    children: PropTypes.object.isRequired,
 };
 
 export default Layout;

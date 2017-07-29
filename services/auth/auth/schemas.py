@@ -15,3 +15,4 @@ class ClientSchema(Schema):
 class RefreshTokenSchema(Schema):
     id = fields.UUID(required=True)
     user_id = fields.Int(required=True)
+    client_id = fields.Int(required=True)
