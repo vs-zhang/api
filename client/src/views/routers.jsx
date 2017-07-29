@@ -1,9 +1,11 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import Layout from './layout';
 
 const routes = (
-    <Route path="/" component={Layout} />
+    <Switch>
+        <Route path="/" component={Layout} />
+    </Switch>
 );
 
 export default routes;

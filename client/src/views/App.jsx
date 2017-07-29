@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import {
-  HashRouter,
-} from 'react-router-dom';
+import { HashRouter, BrowserRouter } from 'react-router-dom';
 import routers from './routers';
 import './styles/app.css';
 import configureStore from '../core/store';
@@ -23,9 +21,9 @@ export default class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <HashRouter>
+                <BrowserRouter>
                     {routers}
-                </HashRouter>
+                </BrowserRouter>
             </Provider>
         );
     }
