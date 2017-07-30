@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import 'semantic-ui-css/semantic.min.css';
 import routers from './routers';
 import './styles/app.css';
 import configureStore from '../core/store';
@@ -21,7 +22,7 @@ export default class App extends Component {
             this.setState({
                 loading: false
             });
-        }, 2000);
+        }, 10);
     }
 
     render() {
@@ -33,10 +34,10 @@ export default class App extends Component {
         );
 
         const mainApp = (
-            <Provider store={store}>
-                <BrowserRouter>
+            <Provider store={ store }>
+                <Router>
                     {routers}
-                </BrowserRouter>
+                </Router>
             </Provider>
         );
 

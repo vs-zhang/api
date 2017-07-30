@@ -1,4 +1,4 @@
-FROM node:boron
+FROM node:7.10-slim
 
 ENV CODE_DIR /code
 

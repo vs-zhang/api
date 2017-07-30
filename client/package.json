@@ -24,7 +24,9 @@
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.0"
+    "reselect": "^3.0.0",
+    "semantic-ui-css": "^2.2.11",
+    "semantic-ui-react": "^0.71.3"
   },
   "devDependencies": {
     "babel": "^6.23.0",
