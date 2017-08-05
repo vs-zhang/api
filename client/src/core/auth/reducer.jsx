@@ -1,6 +1,7 @@
 import { Record } from 'immutable';
 import {
-  LOGIN_SUCCESS,
+    SIGN_UP_SUCCESS,
+    LOGIN_SUCCESS,
 } from './action-types';
 
 export const AuthState = new Record({
@@ -12,13 +13,11 @@ export const AuthState = new Record({
 
 export function authReducer(state = new AuthState(), { payload, type }) {
     switch (type) {
+    case SIGN_UP_SUCCESS:
     case LOGIN_SUCCESS:
         console.log(payload);
         return state.merge({
-            authenticated: !!payload,
-            id: payload ? payload.uid : null,
-            email: payload ? payload.email : null,
-            username: payload ? payload.displayName : null,
+            authenticated: !!payload
         });
     default:
         return state;
