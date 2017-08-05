@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import { locationReducer } from './location';
 import { heroesReducer } from './heroes';
+import { authReducer } from './auth';
 
 export default combineReducers({
-  location: locationReducer,
-  heroes: heroesReducer,
+    auth: authReducer,
+    location: locationReducer,
+    heroes: heroesReducer,
 });

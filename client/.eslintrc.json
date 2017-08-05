@@ -18,6 +18,7 @@
     "quotes": [2, "single"],
     "strict": [2, "never"],
     "comma-dangle": [0, "never"],
+    "jsx-a11y/label-has-for": [1],
     "import/prefer-default-export": [0],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": [0, { "ignorePureComponents": false }]

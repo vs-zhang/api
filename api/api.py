@@ -4,8 +4,10 @@ from nameko.standalone.rpc import ClusterRpcProxy
 import os
 from utils import encode_refresh_token, decode_refresh_token
 import pdb
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+CORS(app)
 Swagger(app)
 RABBIT_USER = os.getenv("RABBIT_USER", "guest")
 RABBIT_PASSWORD = os.getenv("RABBIT_PASSWORD", "guest")
@@ -20,7 +22,7 @@ def oauth_token():
     ecoded_cid = request.headers.get('Authorization').split(' ')[1]
     with ClusterRpcProxy(CONFIG) as rpc:
         client = rpc.client.get(ecoded_cid)
-        grant_type = request.json.get('grant_type')
+        grant_type = request.json.get('type')
         result = {}
         if grant_type == 'password':
             print 'generating refresh_token and access_token by pwd'
