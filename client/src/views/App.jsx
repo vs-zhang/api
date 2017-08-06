@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
-import routers from './routers';
+import { createStore, applyMiddleware } from 'redux';
+import createHistory from 'history/createBrowserHistory';
+import { routerMiddleware } from 'react-router-redux';
+import thunk from 'redux-thunk';
+import MainRouter from './routers';
 import './styles/app.css';
-import configureStore from '../core/store';
 import { Loader } from './Components';
+import reducers from '../core/reducers';
 
-const store = configureStore();
+const history = createHistory();
+const store = createStore(
+    reducers,
+    applyMiddleware(thunk, routerMiddleware(history))
+);
+
+if (module.hot) {
+    module.hot.accept('../core/reducers', () => {
+        /* eslint-disable global-require */
+        store.replaceReducer(require('../core/reducers').default);
+        /* eslint-enable global-require */
+    });
+}
 
 export default class App extends Component {
     constructor(props) {
@@ -32,12 +47,9 @@ export default class App extends Component {
                 <Loader />
             </div>
         );
-
         const mainApp = (
             <Provider store={ store }>
-                <Router>
-                    {routers}
-                </Router>
+                <MainRouter history={ history } />
             </Provider>
         );
 
