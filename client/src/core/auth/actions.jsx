@@ -8,6 +8,7 @@ import {
 function setAuthCookies(userData) {
     const { access_token, refresh_token } = userData;
     const cookies = new Cookies();
+    // make cookies secure and httpOnly
     cookies.set('access_token', access_token);
     cookies.set('refresh_token', refresh_token);
 }
