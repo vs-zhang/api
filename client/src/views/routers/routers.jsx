@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { Route, Switch, withRouter } from 'react-router';
+import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
 import Cookies from 'universal-cookie';
 import jwtDecode from 'jwt-decode';
@@ -14,10 +14,10 @@ import { isAuthenticated, authActions } from '../../core/auth';
 class MainRouter extends Component {
     static propTypes = {
         initLoggedIn: PropTypes.func.isRequired,
+        reIssueAccessToken: PropTypes.func.isRequired,
         isAuth: PropTypes.bool.isRequired,
         history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
     }
-
 
     constructor(props) {
         super(props);
@@ -32,7 +32,10 @@ class MainRouter extends Component {
         const refresh_token = this.state.cookies.get('refresh_token'); // eslint-disable-line camelcase
         if (refresh_token) { // eslint-disable-line camelcase
             const userData = { access_token, refresh_token };
-            console.log(jwtDecode(access_token));
+            const { exp, iat, sub } = jwtDecode(access_token);
+            if (exp * 1000 < Date.now()) {
+                this.props.reIssueAccessToken(refresh_token);
+            }
             this.props.initLoggedIn(userData);
         }
     }

@@ -46,6 +46,21 @@ export function login(username, password) {
     };
 }
 
+export function reIssueAccessToken(refresh_token) {
+    const config = {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        Authorization: 'Basic d2ViYXBw'
+    };
+    return (dispatch) => {
+        axios.post('http://localhost:5000/oauth/token', { refresh_token, type: 'refresh_token' }, { headers: config })
+            .then((res) => {
+                setAuthCookies(res.data);
+                dispatch(signInSuccess(res.data));
+            });
+    };
+}
+
 export function signup(username, email, password) {
     const config = {
         'Access-Control-Allow-Origin': '*',
