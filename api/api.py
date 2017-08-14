@@ -30,10 +30,10 @@ def oauth_token():
             password = request.json.get('password')
             user = rpc.user.login(username, password)
             refresh_token = rpc.refresh_token.create(user['id'], client['id'], ip_address, user_agent)
-            auth_token = rpc.auth_token.encode(user['id'])
+            access_token = rpc.access_token.encode(user['id'])
             result = {
                 'token_type': 'bearer',
-                'access_token': auth_token,
+                'access_token': access_token,
                 'refresh_token': encode_refresh_token(refresh_token['id'])
             }
         elif grant_type == 'refresh_token':
@@ -41,10 +41,10 @@ def oauth_token():
             token = request.json.get('refresh_token')
             token_id = decode_refresh_token(token)
             refresh_token = rpc.refresh_token.get(token_id)
-            auth_token = rpc.auth_token.encode(refresh_token['user_id'])
+            access_token = rpc.access_token.encode(refresh_token['user_id'])
             result = {
                 'token_type': 'bearer',
-                'access_token': auth_token,
+                'access_token': access_token,
                 'refresh_token': token
             }
         else:
@@ -65,10 +65,10 @@ def signup():
         client = rpc.client.get(ecoded_cid)
         user = rpc.user.create(username, email, password)
         refresh_token = rpc.refresh_token.create(user['id'], client['id'], ip_address, user_agent)
-        auth_token = rpc.auth_token.encode(user['id'])
+        access_token = rpc.access_token.encode(user['id'])
         result = {
             'token_type': 'bearer',
-            'access_token': auth_token,
+            'access_token': access_token,
             'refresh_token': encode_refresh_token(refresh_token['id'])
         }
         return jsonify(result), 200

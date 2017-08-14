@@ -4,8 +4,8 @@ from nameko_sqlalchemy import DatabaseSession
 import jwt
 import datetime
 
-class AuthTokenService(object):
-    name = "auth_token"
+class AccessTokenService(object):
+    name = "access_token"
 
     @rpc
     def encode(self, user_id):
