@@ -6,16 +6,20 @@ import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
 import Cookies from 'universal-cookie';
 import jwtDecode from 'jwt-decode';
+import ui from 'redux-ui';
 import { HomePage, LoginPage, SignupPage, SettingsPage } from '../Pages';
 import AuthRoute from './AuthRoute';
 import PrivateRoute from './PrivateRoute';
 import { isAuthenticated, authActions } from '../../core/auth';
+import { Navbar, Sidebar } from '../Components';
 
 class MainRouter extends Component {
     static propTypes = {
         initLoggedIn: PropTypes.func.isRequired,
         reIssueAccessToken: PropTypes.func.isRequired,
         isAuth: PropTypes.bool.isRequired,
+        updateUI: PropTypes.func.isRequired,
+        ui: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
         history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
     }
 
@@ -40,6 +44,10 @@ class MainRouter extends Component {
         }
     }
 
+    clickMe = () => {
+        this.props.updateUI({ isSidebarOpen: !this.props.ui.isSidebarOpen });
+    }
+
     render() {
         const { isAuth, history } = this.props;
         const routes = (
@@ -51,10 +59,16 @@ class MainRouter extends Component {
                 <Route exact path="/" component={ HomePage } />
             </Switch>
         );
+
         return (
             <div>
                 <ConnectedRouter history={ history }>
-                    {routes}
+                    <Sidebar isSidebarOpen={ this.props.ui.isSidebarOpen }>
+                        <Navbar onMenuClick={ this.clickMe } />
+                        <div>
+                            {routes}
+                        </div>
+                    </Sidebar>
                 </ConnectedRouter>
             </div>
         );
@@ -66,4 +80,9 @@ const mapStateToProps = createSelector(
   isAuth => ({ isAuth })
 );
 
-export default connect(mapStateToProps, authActions)(MainRouter);
+const uiState = {
+    isSidebarOpen: false
+};
+
+const connectComponent = connect(mapStateToProps, authActions)(MainRouter);
+export default ui({ key: 'home', state: uiState })(connectComponent);

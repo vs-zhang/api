@@ -28,6 +28,7 @@
     "redux": "^3.6.0",
     "redux-form": "^7.0.3",
     "redux-thunk": "^2.2.0",
+    "redux-ui": "^0.1.1",
     "reselect": "^3.0.0",
     "semantic-ui-css": "^2.2.11",
     "semantic-ui-react": "^0.71.3",
