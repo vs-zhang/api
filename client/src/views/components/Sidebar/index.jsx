@@ -15,15 +15,10 @@ export default class Navbar extends Component {
         super(props);
         this.state = {
             activeItem: 'home',
-            visible: false,
         };
     }
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
-
-    toggleSidebar = () => {
-        this.setState({ visible: !this.state.visible });
-    }
 
     render() {
         const { isAuth, children } = this.props;

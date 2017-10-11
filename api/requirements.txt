@@ -3,9 +3,10 @@ anyjson==0.3.3
 click==6.7
 enum-compat==0.0.2
 enum34==1.1.6
-eventlet==0.20.0
+eventlet==0.21.0
 flasgger==0.6.3
 Flask==0.12.2
+Flask-Cors==3.0.3
 funcsigs==1.0.2
 functools32==3.2.3.post2
 greenlet==0.4.12
