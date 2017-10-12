@@ -1,5 +1,6 @@
 import * as axios from 'axios';
 import Cookies from 'universal-cookie';
+import jwtDecode from 'jwt-decode';
 import {
     LOGIN_SUCCESS,
     SIGN_UP_SUCCESS,
@@ -8,7 +9,6 @@ import {
 function setAuthCookies(userData) {
     const { access_token, refresh_token } = userData;
     const cookies = new Cookies();
-    // make cookies secure and httpOnly
     cookies.set('access_token', access_token);
     cookies.set('refresh_token', refresh_token);
 }
@@ -38,10 +38,13 @@ export function login(username, password) {
         Authorization: 'Basic d2ViYXBw'
     };
     return (dispatch) => {
-        axios.post('http://localhost:5000/oauth/token', { username, password, type: 'password' }, { headers: config })
+        axios.post('http://localhost:5000/oauth/token', { username, password, grant_type: 'password' }, { headers: config })
             .then((res) => {
-                setAuthCookies(res.data);
-                dispatch(signInSuccess(res.data));
+                const { data } = res;
+                setAuthCookies(data);
+                const { access_token: accessToken } = data;
+                const { sub: user } = jwtDecode(accessToken);
+                dispatch(signInSuccess(user));
             });
     };
 }
@@ -53,10 +56,13 @@ export function reIssueAccessToken(refresh_token) {
         Authorization: 'Basic d2ViYXBw'
     };
     return (dispatch) => {
-        axios.post('http://localhost:5000/oauth/token', { refresh_token, type: 'refresh_token' }, { headers: config })
+        axios.post('http://localhost:5000/oauth/token', { refresh_token, grant_type: 'refresh_token' }, { headers: config })
             .then((res) => {
-                setAuthCookies(res.data);
-                dispatch(signInSuccess(res.data));
+                const { data } = res;
+                setAuthCookies(data);
+                const { access_token: accessToken } = data;
+                const { sub: user } = jwtDecode(accessToken);
+                dispatch(signInSuccess(user));
             });
     };
 }
@@ -70,8 +76,11 @@ export function signup(username, email, password) {
     return (dispatch) => {
         axios.post('http://localhost:5000/signup', { username, password, email }, { headers: config })
             .then((res) => {
-                setAuthCookies(res.data);
-                dispatch(signUpSuccess(res.data));
+                const { data } = res;
+                setAuthCookies(data);
+                const { access_token: accessToken } = data;
+                const { sub: user } = jwtDecode(accessToken);
+                dispatch(signUpSuccess(user));
             });
     };
 }

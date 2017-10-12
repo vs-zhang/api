@@ -15,9 +15,10 @@ export function authReducer(state = new AuthState(), { payload, type }) {
     switch (type) {
     case SIGN_UP_SUCCESS:
     case LOGIN_SUCCESS:
-        console.log(payload);
+        console.log(payload)
         return state.merge({
-            authenticated: !!payload
+            ...payload,
+            authenticated: !!payload,
         });
     default:
         return state;

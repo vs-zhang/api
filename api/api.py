@@ -22,7 +22,7 @@ def oauth_token():
     ecoded_cid = request.headers.get('Authorization').split(' ')[1]
     with ClusterRpcProxy(CONFIG) as rpc:
         client = rpc.client.get(ecoded_cid)
-        grant_type = request.json.get('type')
+        grant_type = request.json.get('grant_type')
         result = {}
         if grant_type == 'password':
             print 'generating refresh_token and access_token by pwd'
@@ -30,7 +30,7 @@ def oauth_token():
             password = request.json.get('password')
             user = rpc.user.login(username, password)
             refresh_token = rpc.refresh_token.create(user['id'], client['id'], ip_address, user_agent)
-            access_token = rpc.access_token.encode(user['id'])
+            access_token = rpc.access_token.encode(user)
             result = {
                 'token_type': 'bearer',
                 'access_token': access_token,

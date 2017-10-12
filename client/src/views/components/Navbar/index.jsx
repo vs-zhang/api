@@ -21,21 +21,24 @@ export default class Navbar extends Component {
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
-    toggleSidebar = () => {
-        this.props.onMenuClick();
-    }
-
     render() {
         const { isAuth } = this.props;
-        const { activeItem, visible } = this.state;
+        const { activeItem } = this.state;
+        console.log(isAuth);
+        const logOutItem = (
+            <Menu.Item name="logout" active={ activeItem === 'logout' } onClick={ this.handleItemClick } />
+        );
+        const logInItem = (
+            <Menu.Item name="log In" active={ activeItem === 'logIn' } onClick={ this.handleItemClick } />
+        );
+        const logAction = isAuth ? logOutItem : logInItem;
         return (
             <div>
                 <Sticky>
                     <Menu pointing secondary>
                         <Menu.Item name="home" active={ activeItem === 'home' } onClick={ this.handleItemClick } />
-                        <Menu.Item name="menu" onClick={ this.toggleSidebar } />
                         <Menu.Menu position="right">
-                            <Menu.Item name="logout" active={ activeItem === 'logout' } onClick={ this.handleItemClick } />
+                            { logAction }
                         </Menu.Menu>
                     </Menu>
                 </Sticky>

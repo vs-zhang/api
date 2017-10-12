@@ -11,7 +11,7 @@ import { HomePage, LoginPage, SignupPage, SettingsPage } from '../Pages';
 import AuthRoute from './AuthRoute';
 import PrivateRoute from './PrivateRoute';
 import { isAuthenticated, authActions } from '../../core/auth';
-import { Navbar, Sidebar } from '../Components';
+import { Navbar } from '../Components';
 
 class MainRouter extends Component {
     static propTypes = {
@@ -32,15 +32,14 @@ class MainRouter extends Component {
     }
 
     componentWillMount() {
-        const access_token = this.state.cookies.get('access_token'); // eslint-disable-line camelcase
-        const refresh_token = this.state.cookies.get('refresh_token'); // eslint-disable-line camelcase
-        if (refresh_token) { // eslint-disable-line camelcase
-            const userData = { access_token, refresh_token };
-            const { exp, iat, sub } = jwtDecode(access_token);
+        const accessToken = this.state.cookies.get('access_token');
+        const refreshToken = this.state.cookies.get('refresh_token');
+        if (refreshToken) {
+            const { exp, sub: user } = jwtDecode(accessToken);
             if (exp * 1000 < Date.now()) {
-                this.props.reIssueAccessToken(refresh_token);
+                this.props.reIssueAccessToken(refreshToken);
             }
-            this.props.initLoggedIn(userData);
+            this.props.initLoggedIn(user);
         }
     }
 
@@ -61,16 +60,14 @@ class MainRouter extends Component {
         );
 
         return (
-            <div>
-                <ConnectedRouter history={ history }>
-                    <Sidebar isSidebarOpen={ this.props.ui.isSidebarOpen }>
-                        <Navbar onMenuClick={ this.clickMe } />
-                        <div>
-                            {routes}
-                        </div>
-                    </Sidebar>
-                </ConnectedRouter>
-            </div>
+            <ConnectedRouter history={ history }>
+                <div>
+                    <Navbar onMenuClick={ this.clickMe } isAuth={ isAuth } />
+                    <div>
+                        {routes}
+                    </div>
+                </div>
+            </ConnectedRouter>
         );
     }
 }
