@@ -8,12 +8,12 @@ class AccessTokenService(object):
     name = "access_token"
 
     @rpc
-    def encode(self, user_id):
+    def encode(self, user):
         try:
             payload = {
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=5),
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=2),
                 'iat': datetime.datetime.utcnow(),
-                'sub': user_id
+                'sub': user
             }
             return jwt.encode(
                 payload,
