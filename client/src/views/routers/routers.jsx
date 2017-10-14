@@ -38,13 +38,10 @@ class MainRouter extends Component {
             const { exp, sub: user } = jwtDecode(accessToken);
             if (exp * 1000 < Date.now()) {
                 this.props.reIssueAccessToken(refreshToken);
+            } else {
+                this.props.initLoggedIn(user);
             }
-            this.props.initLoggedIn(user);
         }
-    }
-
-    clickMe = () => {
-        this.props.updateUI({ isSidebarOpen: !this.props.ui.isSidebarOpen });
     }
 
     render() {
@@ -62,7 +59,7 @@ class MainRouter extends Component {
         return (
             <ConnectedRouter history={ history }>
                 <div>
-                    <Navbar onMenuClick={ this.clickMe } isAuth={ isAuth } />
+                    <Navbar isAuth={ isAuth } />
                     <div>
                         {routes}
                     </div>
