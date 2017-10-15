@@ -62,6 +62,8 @@ export function reIssueAccessToken(refresh_token) {
                 setAuthCookies(data);
                 const { access_token: accessToken } = data;
                 const { sub: user } = jwtDecode(accessToken);
+                console.log('get the user');
+                console.log(user);
                 dispatch(signInSuccess(user));
             });
     };

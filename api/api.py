@@ -41,7 +41,8 @@ def oauth_token():
             token = request.json.get('refresh_token')
             token_id = decode_refresh_token(token)
             refresh_token = rpc.refresh_token.get(token_id)
-            access_token = rpc.access_token.encode(refresh_token['user_id'])
+            user = rpc.user.get(refresh_token['user_id'])
+            access_token = rpc.access_token.encode(user)
             result = {
                 'token_type': 'bearer',
                 'access_token': access_token,

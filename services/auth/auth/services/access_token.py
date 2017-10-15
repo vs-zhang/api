@@ -11,7 +11,7 @@ class AccessTokenService(object):
     def encode(self, user):
         try:
             payload = {
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=2),
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=1),
                 'iat': datetime.datetime.utcnow(),
                 'sub': user
             }

@@ -36,7 +36,11 @@ class MainRouter extends Component {
         const refreshToken = this.state.cookies.get('refresh_token');
         if (refreshToken) {
             const { exp, sub: user } = jwtDecode(accessToken);
+            console.log(exp * 1000);
+            console.log(Date.now());
+            console.log(user);
             if (exp * 1000 < Date.now()) {
+                console.log('re issue access token');
                 this.props.reIssueAccessToken(refreshToken);
             } else {
                 this.props.initLoggedIn(user);
