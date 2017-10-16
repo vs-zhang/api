@@ -24,14 +24,17 @@ export default class Navbar extends Component {
     render() {
         const { isAuth } = this.props;
         const { activeItem } = this.state;
-        console.log(isAuth);
+
         const logOutItem = (
             <Menu.Item name="logout" active={ activeItem === 'logout' } onClick={ this.handleItemClick } />
         );
+
         const logInItem = (
             <Menu.Item name="log In" active={ activeItem === 'logIn' } onClick={ this.handleItemClick } />
         );
+
         const logAction = isAuth ? logOutItem : logInItem;
+
         return (
             <div>
                 <Sticky>
