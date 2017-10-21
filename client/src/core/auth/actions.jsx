@@ -6,6 +6,8 @@ import {
     SIGN_UP_SUCCESS,
 } from './action-types';
 
+const apiHost = 'http://api.dev.com';
+
 function setAuthCookies(userData) {
     const { access_token, refresh_token } = userData;
     const cookies = new Cookies();
@@ -32,13 +34,13 @@ export function initLoggedIn(userData) {
 }
 
 export function login(username, password) {
-    const config = {
+    const headers = {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
         Authorization: 'Basic d2ViYXBw'
     };
     return (dispatch) => {
-        axios.post('http://localhost:5000/oauth/token', { username, password, grant_type: 'password' }, { headers: config })
+        axios.post(`${apiHost}/oauth/token`, { username, password, grant_type: 'password' }, { headers })
             .then((res) => {
                 const { data } = res;
                 setAuthCookies(data);
@@ -50,13 +52,13 @@ export function login(username, password) {
 }
 
 export function reIssueAccessToken(refresh_token) {
-    const config = {
+    const headers = {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
         Authorization: 'Basic d2ViYXBw'
     };
     return (dispatch) => {
-        axios.post('http://localhost:5000/oauth/token', { refresh_token, grant_type: 'refresh_token' }, { headers: config })
+        axios.post(`${apiHost}/oauth/token`, { refresh_token, grant_type: 'refresh_token' }, { headers })
             .then((res) => {
                 const { data } = res;
                 setAuthCookies(data);
@@ -68,13 +70,13 @@ export function reIssueAccessToken(refresh_token) {
 }
 
 export function signup(username, email, password) {
-    const config = {
+    const headers = {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
         Authorization: 'Basic d2ViYXBw'
     };
     return (dispatch) => {
-        axios.post('http://localhost:5000/signup', { username, password, email }, { headers: config })
+        axios.post(`${apiHost}/oauth/signup`, { username, password, email }, { headers })
             .then((res) => {
                 const { data } = res;
                 setAuthCookies(data);

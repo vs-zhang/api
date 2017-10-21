@@ -10,6 +10,7 @@ module.exports = {
         inline: true,
         host: '0.0.0.0',
         publicPath: '/',
+        disableHostCheck: true,
         historyApiFallback: true,
         port: 8080,
         contentBase: './src',

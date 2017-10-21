@@ -7,7 +7,7 @@ import pdb
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-CORS(app)
+cors = CORS(app)
 Swagger(app)
 RABBIT_USER = os.getenv("RABBIT_USER", "guest")
 RABBIT_PASSWORD = os.getenv("RABBIT_PASSWORD", "guest")
@@ -17,9 +17,11 @@ CONFIG = {'AMQP_URI': "amqp://{}:{}@{}:{}".format(RABBIT_USER, RABBIT_PASSWORD, 
 
 @app.route('/oauth/token', methods=['POST'])
 def oauth_token():
+    print 'hi'
     user_agent = request.headers.get('User-Agent')
     ip_address = request.remote_addr
     ecoded_cid = request.headers.get('Authorization').split(' ')[1]
+    print request.cookies
     with ClusterRpcProxy(CONFIG) as rpc:
         client = rpc.client.get(ecoded_cid)
         grant_type = request.json.get('grant_type')
@@ -51,7 +53,9 @@ def oauth_token():
         else:
             print 'Wrong grant type'
 
-        return jsonify(result), 200
+        res = jsonify(result)
+        res.set_cookie('my_key', 'my_value', domain=".dev.com")
+        return res, 200
 
 
 @app.route('/signup', methods=['POST'])
