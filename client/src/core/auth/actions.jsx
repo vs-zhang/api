@@ -40,7 +40,7 @@ export function login(username, password) {
         Authorization: 'Basic d2ViYXBw'
     };
     return (dispatch) => {
-        axios.post(`${apiHost}/oauth/token`, { username, password, grant_type: 'password' }, { headers })
+        axios.post(`${apiHost}/oauth/token`, { username, password, grant_type: 'password' }, { headers, withCredentials: true })
             .then((res) => {
                 const { data } = res;
                 setAuthCookies(data);
@@ -58,7 +58,7 @@ export function reIssueAccessToken(refresh_token) {
         Authorization: 'Basic d2ViYXBw'
     };
     return (dispatch) => {
-        axios.post(`${apiHost}/oauth/token`, { refresh_token, grant_type: 'refresh_token' }, { headers })
+        axios.post(`${apiHost}/oauth/token`, { refresh_token, grant_type: 'refresh_token' }, { headers, withCredentials: true })
             .then((res) => {
                 const { data } = res;
                 setAuthCookies(data);

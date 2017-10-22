@@ -7,7 +7,8 @@ import pdb
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-cors = CORS(app)
+# cors = CORS(app, resources={r"/*": {"origins": ["http://www.dev.com"], "supports_credentials": True}})
+cors = CORS(app, resources={r"/*": {"origins": "*", "supports_credentials": True}})
 Swagger(app)
 RABBIT_USER = os.getenv("RABBIT_USER", "guest")
 RABBIT_PASSWORD = os.getenv("RABBIT_PASSWORD", "guest")
@@ -54,7 +55,7 @@ def oauth_token():
             print 'Wrong grant type'
 
         res = jsonify(result)
-        res.set_cookie('my_key', 'my_value', domain=".dev.com")
+        res.set_cookie('my_key', 'my_value', domain=".dev.com", httponly=True)
         return res, 200
 
 
