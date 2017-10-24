@@ -7,7 +7,6 @@ import pdb
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-# cors = CORS(app, resources={r"/*": {"origins": ["http://www.dev.com"], "supports_credentials": True}})
 cors = CORS(app, resources={r"/*": {"origins": "*", "supports_credentials": True}})
 Swagger(app)
 RABBIT_USER = os.getenv("RABBIT_USER", "guest")
@@ -18,7 +17,6 @@ CONFIG = {'AMQP_URI': "amqp://{}:{}@{}:{}".format(RABBIT_USER, RABBIT_PASSWORD, 
 
 @app.route('/oauth/token', methods=['POST'])
 def oauth_token():
-    print 'hi'
     user_agent = request.headers.get('User-Agent')
     ip_address = request.remote_addr
     ecoded_cid = request.headers.get('Authorization').split(' ')[1]
@@ -34,28 +32,27 @@ def oauth_token():
             user = rpc.user.login(username, password)
             refresh_token = rpc.refresh_token.create(user['id'], client['id'], ip_address, user_agent)
             access_token = rpc.access_token.encode(user)
+            token = encode_refresh_token(refresh_token['id'])
             result = {
                 'token_type': 'bearer',
-                'access_token': access_token,
-                'refresh_token': encode_refresh_token(refresh_token['id'])
+                'access_token': access_token
             }
         elif grant_type == 'refresh_token':
             print 'generating access_token by refresh_token'
-            token = request.json.get('refresh_token')
+            token = request.cookies.get('_rt')
             token_id = decode_refresh_token(token)
             refresh_token = rpc.refresh_token.get(token_id)
             user = rpc.user.get(refresh_token['user_id'])
             access_token = rpc.access_token.encode(user)
             result = {
                 'token_type': 'bearer',
-                'access_token': access_token,
-                'refresh_token': token
+                'access_token': access_token
             }
         else:
             print 'Wrong grant type'
 
         res = jsonify(result)
-        res.set_cookie('my_key', 'my_value', domain=".dev.com", httponly=True)
+        res.set_cookie('_rt', token, domain=".dev.com", httponly=True)
         return res, 200
 
 
@@ -72,9 +69,11 @@ def signup():
         user = rpc.user.create(username, email, password)
         refresh_token = rpc.refresh_token.create(user['id'], client['id'], ip_address, user_agent)
         access_token = rpc.access_token.encode(user['id'])
+        token = encode_refresh_token(refresh_token['id'])
         result = {
             'token_type': 'bearer',
-            'access_token': access_token,
-            'refresh_token': encode_refresh_token(refresh_token['id'])
+            'access_token': access_token
         }
-        return jsonify(result), 200
+        res = jsonify(result)
+        res.set_cookie('_rt', token, domain=".dev.com", httponly=True)
+        return res, 200

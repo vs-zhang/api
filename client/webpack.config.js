@@ -1,13 +1,12 @@
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     devtool: 'cheap-module-source-map',
     entry: ['./src/main.jsx'],
     devServer: {
-        hot: true,
-        inline: true,
+        hot: false,
+        inline: false,
         host: '0.0.0.0',
         publicPath: '/',
         disableHostCheck: true,
@@ -53,7 +52,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             chunkSortMode: 'dependency',
             filename: 'index.html',

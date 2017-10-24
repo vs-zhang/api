@@ -18,9 +18,7 @@ class MainRouter extends Component {
         initLoggedIn: PropTypes.func.isRequired,
         reIssueAccessToken: PropTypes.func.isRequired,
         isAuth: PropTypes.bool.isRequired,
-        updateUI: PropTypes.func.isRequired,
-        ui: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-        history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+        history: PropTypes.object.isRequired
     }
 
     constructor(props) {
@@ -33,19 +31,20 @@ class MainRouter extends Component {
 
     componentWillMount() {
         const accessToken = this.state.cookies.get('access_token');
-        const refreshToken = this.state.cookies.get('refresh_token');
-        if (refreshToken) {
+        if (accessToken) {
             const { exp, sub: user } = jwtDecode(accessToken);
             console.log(exp * 1000);
             console.log(Date.now());
             console.log(user);
             if (exp * 1000 < Date.now()) {
                 console.log('re issue access token');
-                this.props.reIssueAccessToken(refreshToken);
+                this.props.reIssueAccessToken();
             } else {
+                console.log('valid access token');
                 this.props.initLoggedIn(user);
             }
         }
+
     }
 
     render() {
