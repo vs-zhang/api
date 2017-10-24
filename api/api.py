@@ -52,7 +52,7 @@ def oauth_token():
             print 'Wrong grant type'
 
         res = jsonify(result)
-        res.set_cookie('_rt', token, domain=".dev.com", httponly=True)
+        res.set_cookie('_rt', token, domain=".dev.com", httponly=True, secure=True)
         return res, 200
 
 
@@ -75,5 +75,5 @@ def signup():
             'access_token': access_token
         }
         res = jsonify(result)
-        res.set_cookie('_rt', token, domain=".dev.com", httponly=True)
+        res.set_cookie('_rt', token, domain=".dev.com", httponly=True, secure=True)
         return res, 200
