@@ -47,13 +47,12 @@ class App extends Component {
 
     render() {
         const { isAuth, history } = this.props;
-
         const mainApp = (
             <ConnectedRouter history={ history }>
                 <div>
                     <Navbar isAuth={ isAuth } />
                     <div>
-                        <MainRouter history={ history } />
+                        <MainRouter history={ history } isAuth={ isAuth } />
                     </div>
                 </div>
             </ConnectedRouter>
