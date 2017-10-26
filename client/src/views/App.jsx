@@ -12,7 +12,6 @@ import styled from 'styled-components';
 import MainRouter from './routers';
 import { isAuthenticated, authActions } from '../core/auth';
 import { Navbar } from './Components';
-import './styles/app.css';
 
 const StyledMain = styled.div`
     padding-top: 40px
