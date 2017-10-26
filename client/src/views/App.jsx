@@ -6,11 +6,17 @@ import { createSelector } from 'reselect';
 import Cookies from 'universal-cookie';
 import { ConnectedRouter } from 'react-router-redux';
 import jwtDecode from 'jwt-decode';
+import { Container } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
+import styled from 'styled-components';
 import MainRouter from './routers';
 import { isAuthenticated, authActions } from '../core/auth';
 import { Navbar } from './Components';
 import './styles/app.css';
+
+const StyledMain = styled.div`
+    padding-top: 40px
+`;
 
 class App extends Component {
     static propTypes = {
@@ -51,9 +57,11 @@ class App extends Component {
             <ConnectedRouter history={ history }>
                 <div>
                     <Navbar isAuth={ isAuth } />
-                    <div>
-                        <MainRouter history={ history } isAuth={ isAuth } />
-                    </div>
+                    <StyledMain>
+                        <Container>
+                            <MainRouter history={ history } isAuth={ isAuth } />
+                        </Container>
+                    </StyledMain>
                 </div>
             </ConnectedRouter>
         );

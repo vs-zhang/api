@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Menu, Sticky, Sidebar, Segment, Icon, Header, Image } from 'semantic-ui-react';
+import { Container, Menu } from 'semantic-ui-react';
 
 export default class Navbar extends Component {
     static propTypes = {
@@ -37,14 +37,14 @@ export default class Navbar extends Component {
 
         return (
             <div>
-                <Sticky>
-                    <Menu pointing secondary>
-                        <Menu.Item name="home" active={ activeItem === 'home' } onClick={ this.handleItemClick } />
-                        <Menu.Menu position="right">
-                            { logAction }
-                        </Menu.Menu>
-                    </Menu>
-                </Sticky>
+                <Menu inverted fixed="top">
+                    <Container>
+                            <Menu.Item name="home" active={ activeItem === 'home' } onClick={ this.handleItemClick } />
+                            <Menu.Menu position="right">
+                                { logAction }
+                            </Menu.Menu>
+                    </Container>
+                </Menu>
             </div>
         );
     }
