@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { createSelector } from 'reselect';
+import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import { isAuthenticated, getAuth, authActions } from '../../../core/auth';
 
@@ -8,15 +9,17 @@ class HomePage extends Component {
     render() {
         const { user } = this.props;
         return (
-            <div>
-                Home
+            <DocumentTitle title="Home">
                 <div>
-                    <Link to="/settings/profile">Settings</Link>
+                    Home
+                    <div>
+                        <Link to="/settings/profile">Settings</Link>
+                    </div>
+                    <div>
+                        { user.email }
+                    </div>
                 </div>
-                <div>
-                    { user.email }
-                </div>
-            </div>
+            </DocumentTitle>
         );
     }
 }

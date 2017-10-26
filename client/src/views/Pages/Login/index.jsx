@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Button, Checkbox, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import DocumentTitle from 'react-document-title';
 import { authActions } from '../../../core/auth';
 
 const Column = Grid.Column;
@@ -39,22 +40,24 @@ class LoginPage extends Component {
     render() {
         const { username, password } = this.state;
         return (
-            <Grid centered columns={ 4 }>
-                <Row>
-                    <Column>
-                        <div>
-                            <Form onSubmit={ this.handleSubmit }>
-                                <Input label="Username" placeholder="Username" value={ username } onChange={ this.handleChangeUsername } required />
-                                <Input label="Password" type="password" placeholder="Password" value={ password } onChange={ this.handleChangePwd } required />
-                                <Field>
-                                    <Checkbox label="I agree to the Terms and Conditions" />
-                                </Field>
-                                <Button type="submit">Submit</Button>
-                            </Form>
-                        </div>
-                    </Column>
-                </Row>
-            </Grid>
+            <DocumentTitle title="Login">
+                <Grid centered columns={ 4 }>
+                    <Row>
+                        <Column>
+                            <div>
+                                <Form onSubmit={ this.handleSubmit }>
+                                    <Input label="Username" placeholder="Username" value={ username } onChange={ this.handleChangeUsername } required />
+                                    <Input label="Password" type="password" placeholder="Password" value={ password } onChange={ this.handleChangePwd } required />
+                                    <Field>
+                                        <Checkbox label="I agree to the Terms and Conditions" />
+                                    </Field>
+                                    <Button type="submit">Submit</Button>
+                                </Form>
+                            </div>
+                        </Column>
+                    </Row>
+                </Grid>
+            </DocumentTitle>
         );
     }
 }

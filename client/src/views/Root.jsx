@@ -6,7 +6,6 @@ import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import App from './App';
-import './styles/app.css';
 import reducers from '../core/reducers';
 // import { Loader } from './Components';
 

@@ -32,7 +32,8 @@
     "semantic-ui-css": "^2.2.11",
     "semantic-ui-react": "^0.71.3",
     "styled-components": "^2.2.2",
-    "universal-cookie": "^2.0.8"
+    "universal-cookie": "^2.0.8",
+    "react-document-title": "^2.0.3"
   },
   "devDependencies": {
     "babel": "^6.23.0",

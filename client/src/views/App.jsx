@@ -10,7 +10,7 @@ import { Container } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import styled from 'styled-components';
 import MainRouter from './routers';
-import { isAuthenticated, authActions } from '../core/auth';
+import { isAuthenticated, getAuth, authActions } from '../core/auth';
 import { Navbar } from './Components';
 
 const StyledMain = styled.div`
@@ -22,6 +22,7 @@ class App extends Component {
         initLoggedIn: PropTypes.func.isRequired,
         reIssueAccessToken: PropTypes.func.isRequired,
         isAuth: PropTypes.bool.isRequired,
+        user: PropTypes.object.isRequired,
         history: PropTypes.object.isRequired
     }
 
@@ -49,11 +50,11 @@ class App extends Component {
     }
 
     render() {
-        const { isAuth, history } = this.props;
+        const { isAuth, history, user } = this.props;
         const mainApp = (
             <ConnectedRouter history={ history }>
                 <div>
-                    <Navbar isAuth={ isAuth } />
+                    <Navbar isAuth={ isAuth } user={ user } />
                     <StyledMain>
                         <Container>
                             <MainRouter history={ history } isAuth={ isAuth } />
@@ -73,7 +74,8 @@ class App extends Component {
 
 const mapStateToProps = createSelector(
   isAuthenticated,
-  isAuth => ({ isAuth })
+  getAuth,
+  (isAuth, user) => ({ isAuth, user })
 );
 
 const uiState = {
