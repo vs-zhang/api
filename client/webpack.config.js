@@ -56,6 +56,7 @@ module.exports = {
             chunkSortMode: 'dependency',
             filename: 'index.html',
             hash: false,
+            favicon: './src/assets/favicon.ico',
             inject: 'body',
             template: './src/index.tpl.html'
         })

@@ -11,7 +11,7 @@ const apiHost = 'https://api.dev.com';
 function setAuthCookies(userData) {
     const { access_token } = userData;
     const cookies = new Cookies();
-    cookies.set('access_token', access_token);
+    cookies.set('access_token', access_token, { secure: true });
 }
 
 function signInSuccess(userData) {

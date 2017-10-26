@@ -11,26 +11,17 @@ export default class Navbar extends Component {
         isAuth: false,
     };
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeItem: 'home',
-            visible: false,
-        };
-    }
-
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
     render() {
         const { isAuth } = this.props;
-        const { activeItem } = this.state;
 
         const logOutItem = (
-            <Menu.Item name="logout" active={ activeItem === 'logout' } onClick={ this.handleItemClick } />
+            <Menu.Item name="logout" onClick={ this.handleItemClick } />
         );
 
         const logInItem = (
-            <Menu.Item name="log In" active={ activeItem === 'logIn' } onClick={ this.handleItemClick } />
+            <Menu.Item name="log In" onClick={ this.handleItemClick } />
         );
 
         const logAction = isAuth ? logOutItem : logInItem;
@@ -39,10 +30,10 @@ export default class Navbar extends Component {
             <div>
                 <Menu inverted fixed="top">
                     <Container>
-                            <Menu.Item name="home" active={ activeItem === 'home' } onClick={ this.handleItemClick } />
-                            <Menu.Menu position="right">
-                                { logAction }
-                            </Menu.Menu>
+                        <Menu.Item name="home" onClick={ this.handleItemClick } />
+                        <Menu.Menu position="right">
+                            { logAction }
+                        </Menu.Menu>
                     </Container>
                 </Menu>
             </div>

@@ -38,8 +38,6 @@ class App extends Component {
         const accessToken = this.state.cookies.get('access_token');
         if (accessToken) {
             const { exp, sub: user } = jwtDecode(accessToken);
-            console.log(exp * 1000);
-            console.log(Date.now());
             console.log(user);
             if (exp * 1000 < Date.now()) {
                 console.log('re issue access token');
