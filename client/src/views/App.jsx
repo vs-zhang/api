@@ -13,8 +13,8 @@ import MainRouter from './routers';
 import { isAuthenticated, getAuth, authActions } from '../core/auth';
 import { Navbar } from './Components';
 
-const StyledMain = styled.div`
-    padding-top: 40px
+const MainContainer = styled.div`
+    padding-top: 50px
 `;
 
 class App extends Component {
@@ -55,11 +55,11 @@ class App extends Component {
             <ConnectedRouter history={ history }>
                 <div>
                     <Navbar isAuth={ isAuth } user={ user } />
-                    <StyledMain>
+                    <MainContainer>
                         <Container>
                             <MainRouter history={ history } isAuth={ isAuth } />
                         </Container>
-                    </StyledMain>
+                    </MainContainer>
                 </div>
             </ConnectedRouter>
         );

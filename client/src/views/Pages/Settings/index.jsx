@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Button, Checkbox, Form } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router';
 import { authActions } from '../../../core/auth';
@@ -9,14 +9,12 @@ import SecurityPage from './Security';
 
 const Column = Grid.Column;
 const Row = Grid.Row;
-const Field = Form.Field;
-const Input = Form.Input;
 
 class SettingsPage extends Component {
     static propTypes = {
-        location: PropTypes.object.isRequired,  // eslint-disable-line react/forbid-prop-types
-        history: PropTypes.object.isRequired,   // eslint-disable-line react/forbid-prop-types
-        match: PropTypes.object.isRequired,   // eslint-disable-line react/forbid-prop-types
+        location: PropTypes.object.isRequired,
+        history: PropTypes.object.isRequired,
+        match: PropTypes.object.isRequired,
     }
 
     constructor(props) {

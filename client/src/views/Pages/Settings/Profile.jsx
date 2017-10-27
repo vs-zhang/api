@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import DocumentTitle from 'react-document-title';
 import { Grid, Button, Checkbox, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { authActions } from '../../../core/auth';
@@ -16,15 +17,17 @@ class ProfilePage extends Component {
 
     render() {
         return (
-            <Grid columns={ 8 }>
-                <Row>
-                    <Column>
-                        <div>
-                            Profile
-                        </div>
-                    </Column>
-                </Row>
-            </Grid>
+            <DocumentTitle title="Profile">
+                <Grid columns={ 8 }>
+                    <Row>
+                        <Column>
+                            <div>
+                                Profile
+                            </div>
+                        </Column>
+                    </Row>
+                </Grid>
+            </DocumentTitle>
         );
     }
 }

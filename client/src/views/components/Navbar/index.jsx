@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import faker from 'faker';
 import styled from 'styled-components';
-import { Container, Menu, Icon, Dropdown } from 'semantic-ui-react';
+import { Link, withRouter } from 'react-router-dom';
+import { Container, Menu, Icon, Dropdown, Image } from 'semantic-ui-react';
 
-const UserIcon = styled.span`
-    font-size: 20px;
+const NavbarMenu = styled(Menu)`
+    height: 50px;
 `;
 
-const StyledDropdown = styled(Dropdown)`
-    padding: 0;
-`;
-
-export default class Navbar extends Component {
+class Navbar extends Component {
     static propTypes = {
         isAuth: PropTypes.bool,
-        user: PropTypes.object
+        user: PropTypes.object,
+        history: PropTypes.object.isRequired
     };
 
     static defaultProps = {
@@ -24,46 +23,50 @@ export default class Navbar extends Component {
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
+    handleClickDropdown = (e, data) => {
+        this.props.history.push(`/${data.value}`);
+    }
+
     render() {
         const { isAuth, user } = this.props;
         const { username } = user;
         const trigger = (
-            <UserIcon>
-                <Icon name="user" />
-            </UserIcon>
+            <span>
+                <Image avatar src={ faker.internet.avatar() } /> { username }
+            </span>
         );
 
-        const options = [
-            {
-                key: 'user',
-                text: <span>Signed in as <strong>{ username }</strong></span>,
-                disabled: true,
-            },
-            { key: 'settings', text: 'Settings', icon: 'settings' },
-            { key: 'sign-out', text: 'Sign Out', icon: 'sign out' },
-        ];
-
         const DropdownTrigger = () => (
-            <StyledDropdown trigger={ trigger } options={ options } pointing="top left" icon={ null } />
+            <Dropdown trigger={ trigger } pointing="top left" className="link item">
+                <Dropdown.Menu>
+                    <Dropdown.Item text="Settings" icon="settings" value="settings" onClick={ this.handleClickDropdown } />
+                    <Dropdown.Item text="Sign Out" icon="sign out" />
+                </Dropdown.Menu>
+            </Dropdown>
         );
 
         const logInItem = (
-            <Menu.Item name="log In" onClick={ this.handleItemClick } />
+            <Menu.Item name="log In">
+                <Link to="/login">Login</Link>
+            </Menu.Item>
         );
 
         const logAction = isAuth ? <DropdownTrigger /> : logInItem;
 
         return (
-            <div>
-                <Menu inverted borderless fixed="top">
-                    <Container>
-                        <Menu.Item name="home" onClick={ this.handleItemClick } />
-                        <Menu.Item position="right" fitted>
-                            { logAction }
-                        </Menu.Item>
-                    </Container>
-                </Menu>
-            </div>
+            <NavbarMenu inverted borderless fixed="top">
+                <Container>
+                    <Menu.Item name="home">
+                        <Link to="/">Home</Link>
+                    </Menu.Item>
+
+                    <Menu.Item position="right" fitted>
+                        { logAction }
+                    </Menu.Item>
+                </Container>
+            </NavbarMenu>
         );
     }
 }
+
+export default withRouter(Navbar);
