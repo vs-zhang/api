@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import faker from 'faker';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
-import { Container, Menu, Icon, Dropdown, Image } from 'semantic-ui-react';
+import { Container, Menu, Dropdown, Image } from 'semantic-ui-react';
 
 const NavbarMenu = styled(Menu)`
     height: 50px;

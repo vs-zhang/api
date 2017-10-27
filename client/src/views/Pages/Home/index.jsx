@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { createSelector } from 'reselect';
 import DocumentTitle from 'react-document-title';
@@ -23,6 +24,10 @@ class HomePage extends Component {
         );
     }
 }
+
+HomePage.propTypes = {
+    user: PropTypes.object.isRequired
+};
 
 const mapStateToProps = createSelector(
   isAuthenticated,

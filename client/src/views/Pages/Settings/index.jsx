@@ -17,10 +17,6 @@ class SettingsPage extends Component {
         match: PropTypes.object.isRequired,
     }
 
-    constructor(props) {
-        super(props);
-    }
-
     componentWillMount() {
         if (this.props.location.pathname === '/settings') {
             this.props.history.push('settings/profile');
