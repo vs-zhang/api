@@ -47,7 +47,7 @@ export function login(username, password) {
         Authorization: 'Basic d2ViYXBw'
     };
     return (dispatch) => {
-        axios.post(`${apiHost}/oauth/token`, { username, password, grant_type: 'password' }, { headers, withCredentials: true })
+        axios.post(`${apiHost}/auth/token`, { username, password, grant_type: 'password' }, { headers, withCredentials: true })
             .then((res) => {
                 const { data } = res;
                 setAuthCookies(data);
@@ -65,7 +65,7 @@ export function logout() {
         Authorization: 'Basic d2ViYXBw'
     };
     return (dispatch) => {
-        axios.post(`${apiHost}/logout`, {}, { headers, withCredentials: true })
+        axios.post(`${apiHost}/auth/logout`, {}, { headers, withCredentials: true })
             .then(() => {
                 dispatch(signOutSuccess());
                 new Cookies().remove('access_token', { secure: true });
@@ -80,7 +80,7 @@ export function reIssueAccessToken() {
         Authorization: 'Basic d2ViYXBw'
     };
     return (dispatch) => {
-        axios.post(`${apiHost}/oauth/token`, { grant_type: 'refresh_token' }, { headers, withCredentials: true })
+        axios.post(`${apiHost}/auth/token`, { grant_type: 'refresh_token' }, { headers, withCredentials: true })
             .then((res) => {
                 const { data } = res;
                 setAuthCookies(data);
@@ -98,7 +98,7 @@ export function signup(username, email, password) {
         Authorization: 'Basic d2ViYXBw'
     };
     return (dispatch) => {
-        axios.post(`${apiHost}/oauth/signup`, { username, password, email }, { headers })
+        axios.post(`${apiHost}/auth/signup`, { username, password, email }, { headers })
             .then((res) => {
                 const { data } = res;
                 setAuthCookies(data);

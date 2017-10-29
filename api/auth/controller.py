@@ -1,14 +1,15 @@
-from flask import Blueprint
+from flask import Blueprint, request, jsonify
+from nameko.standalone.rpc import ClusterRpcProxy
+from utils import encode_refresh_token, decode_refresh_token
+from constants import CONFIG
 
 auth = Blueprint('auth', __name__)
-
 
 @auth.route('/token', methods=['POST'])
 def oauth_token():
     user_agent = request.headers.get('User-Agent')
     ip_address = request.remote_addr
     ecoded_cid = request.headers.get('Authorization').split(' ')[1]
-    print request.cookies
     with ClusterRpcProxy(CONFIG) as rpc:
         client = rpc.client.get(ecoded_cid)
         grant_type = request.json.get('grant_type')
@@ -41,6 +42,21 @@ def oauth_token():
 
         res = jsonify(result)
         res.set_cookie('_rt', token, domain=".dev.com", httponly=True, secure=True)
+        return res, 200
+
+
+@auth.route('/logout', methods=['POST'])
+def logout():
+    token = request.cookies.get('_rt')
+    print token
+    with ClusterRpcProxy(CONFIG) as rpc:
+        token_id = decode_refresh_token(token)
+        rpc.refresh_token.set_revoke(token_id)
+        result = {
+            'success': 'ok'
+        }
+        res = jsonify(result)
+        res.set_cookie('_rt', '', domain=".dev.com", httponly=True, secure=True)
         return res, 200
 
 
