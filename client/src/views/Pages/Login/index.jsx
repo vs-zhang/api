@@ -40,7 +40,6 @@ class LoginPage extends Component {
 
     render() {
         const { username, password } = this.state;
-        const signUpText = 'Don\'t Have Account? Sign Up one.';
         return (
             <DocumentTitle title="Login">
                 <Grid centered columns={ 4 }>
@@ -53,9 +52,14 @@ class LoginPage extends Component {
                                     <Field>
                                         <Checkbox label="I agree to the Terms and Conditions" />
                                     </Field>
-                                    <Link to="/signup">{ signUpText }</Link>
-                                    <Button type="submit">Submit</Button>
+                                    <Button type="submit" primary fluid>Submit</Button>
                                 </Form>
+                                <div>
+                                    <span>
+                                        New to us?
+                                        <Link to="/signup">Sign Up</Link>
+                                    </span>
+                                </div>
                             </div>
                         </Column>
                     </Row>

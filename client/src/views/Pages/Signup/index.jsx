@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Button, Checkbox, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { authActions } from '../../../core/auth';
 
 const Column = Grid.Column;
@@ -61,7 +62,15 @@ class SignupPage extends Component {
                                 <Field>
                                     <Checkbox label="I agree to the Terms and Conditions" />
                                 </Field>
-                                <Button type="submit">Submit</Button>
+                                <Field>
+                                    <Button type="submit" primary fluid>Submit</Button>
+                                </Field>
+                                <div>
+                                    <span>
+                                        Already have account?
+                                        <Link to="/login">LogIn</Link>
+                                    </span>
+                                </div>
                             </Form>
                         </div>
                     </Column>
