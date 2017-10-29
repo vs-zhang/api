@@ -25,3 +25,10 @@ class RefreshTokenService(object):
     def get(self, token_uuid):
         refresh_token = self.db.query(RefreshToken).get(token_uuid)
         return RefreshTokenSchema().dump(refresh_token).data
+
+    @rpc
+    def set_revoke(self, token_uuid):
+        refresh_token = self.db.query(RefreshToken).get(token_uuid)
+        refresh_token.revoke = True
+        self.db.commit()
+        return RefreshTokenSchema().dump(refresh_token).data

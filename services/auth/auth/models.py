@@ -71,6 +71,7 @@ class RefreshToken(BaseModel):
     id = sa.Column(UUIDType(binary=False), primary_key=True, default=uuid.uuid4)
     user_id = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
     user = relationship("User", back_populates="tokens")
+    revoke = sa.Column(sa.Boolean, nullable=False, default=False)
     client_id = sa.Column(sa.Integer, sa.ForeignKey('clients.id'))
     client = relationship("Client", back_populates="tokens")
     issued_at = sa.Column(
