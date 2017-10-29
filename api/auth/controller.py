@@ -1,21 +1,9 @@
-from flask import Flask, request, jsonify
-from flasgger import Swagger
-from nameko.standalone.rpc import ClusterRpcProxy
-import os
-from utils import encode_refresh_token, decode_refresh_token
-import pdb
-from flask_cors import CORS, cross_origin
+from flask import Blueprint
 
-app = Flask(__name__)
-cors = CORS(app, resources={r"/*": {"origins": "*", "supports_credentials": True}})
-Swagger(app)
-RABBIT_USER = os.getenv("RABBIT_USER", "guest")
-RABBIT_PASSWORD = os.getenv("RABBIT_PASSWORD", "guest")
-RABBIT_HOST = os.getenv("RABBIT_HOST", "localhost")
-RABBIT_PORT = os.getenv("RABBIT_PORT", 5672)
-CONFIG = {'AMQP_URI': "amqp://{}:{}@{}:{}".format(RABBIT_USER, RABBIT_PASSWORD, RABBIT_HOST, RABBIT_PORT)}
+auth = Blueprint('auth', __name__)
 
-@app.route('/oauth/token', methods=['POST'])
+
+@auth.route('/token', methods=['POST'])
 def oauth_token():
     user_agent = request.headers.get('User-Agent')
     ip_address = request.remote_addr
@@ -56,22 +44,7 @@ def oauth_token():
         return res, 200
 
 
-@app.route('/logout', methods=['POST'])
-def logout():
-    token = request.cookies.get('_rt')
-    print token
-    with ClusterRpcProxy(CONFIG) as rpc:
-        token_id = decode_refresh_token(token)
-        rpc.refresh_token.set_revoke(token_id)
-        result = {
-            'success': 'ok'
-        }
-        res = jsonify(result)
-        res.set_cookie('_rt', '', domain=".dev.com", httponly=True, secure=True)
-        return res, 200
-
-
-@app.route('/signup', methods=['POST'])
+@auth.route('/signup', methods=['POST'])
 def signup():
     user_agent = request.headers.get('User-Agent')
     ip_address = request.remote_addr

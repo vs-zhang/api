@@ -2,6 +2,7 @@ import { Record } from 'immutable';
 import {
     SIGN_UP_SUCCESS,
     LOGIN_SUCCESS,
+    SIGN_OUT_SUCCESS
 } from './action-types';
 
 export const AuthState = new Record({
@@ -19,6 +20,8 @@ export function authReducer(state = new AuthState(), { payload, type }) {
             ...payload,
             authenticated: !!payload,
         });
+    case SIGN_OUT_SUCCESS:
+        return state.merge(new AuthState());
     default:
         return state;
     }

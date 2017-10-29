@@ -4,6 +4,7 @@ import jwtDecode from 'jwt-decode';
 import {
     LOGIN_SUCCESS,
     SIGN_UP_SUCCESS,
+    SIGN_OUT_SUCCESS,
 } from './action-types';
 
 const apiHost = 'https://api.dev.com';
@@ -28,6 +29,13 @@ function signUpSuccess(userData) {
     };
 }
 
+function signOutSuccess() {
+    return {
+        type: SIGN_OUT_SUCCESS,
+        payload: {}
+    };
+}
+
 export function initLoggedIn(userData) {
     return dispatch => dispatch(signInSuccess(userData));
 }
@@ -46,6 +54,21 @@ export function login(username, password) {
                 const { access_token: accessToken } = data;
                 const { sub: user } = jwtDecode(accessToken);
                 dispatch(signInSuccess(user));
+            });
+    };
+}
+
+export function logout() {
+    const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        Authorization: 'Basic d2ViYXBw'
+    };
+    return (dispatch) => {
+        axios.post(`${apiHost}/logout`, {}, { headers, withCredentials: true })
+            .then(() => {
+                dispatch(signOutSuccess());
+                new Cookies().remove('access_token', { secure: true });
             });
     };
 }

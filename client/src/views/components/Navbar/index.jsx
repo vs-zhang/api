@@ -13,13 +13,18 @@ class Navbar extends Component {
     static propTypes = {
         isAuth: PropTypes.bool,
         user: PropTypes.object,
-        history: PropTypes.object.isRequired
+        history: PropTypes.object.isRequired,
+        logout: PropTypes.func.isRequired
     };
 
     static defaultProps = {
         isAuth: false,
         user: {}
     };
+
+    shouldComponentUpdate(nextProps) {
+        return nextProps.isAuth !== this.props.isAuth;
+    }
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
@@ -28,7 +33,7 @@ class Navbar extends Component {
     }
 
     render() {
-        const { isAuth, user } = this.props;
+        const { isAuth, user, logout } = this.props;
         const { username } = user;
         const trigger = (
             <span>
@@ -40,7 +45,7 @@ class Navbar extends Component {
             <Dropdown trigger={ trigger } pointing="top left" className="link item">
                 <Dropdown.Menu>
                     <Dropdown.Item text="Settings" icon="settings" value="settings" onClick={ this.handleClickDropdown } />
-                    <Dropdown.Item text="Sign Out" icon="sign out" />
+                    <Dropdown.Item text="Sign Out" icon="sign out" onClick={ logout }/>
                 </Dropdown.Menu>
             </Dropdown>
         );

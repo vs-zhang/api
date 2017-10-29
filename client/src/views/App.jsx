@@ -23,6 +23,7 @@ class App extends Component {
         reIssueAccessToken: PropTypes.func.isRequired,
         isAuth: PropTypes.bool.isRequired,
         user: PropTypes.object.isRequired,
+        logout: PropTypes.func.isRequired,
         history: PropTypes.object.isRequired
     }
 
@@ -50,11 +51,11 @@ class App extends Component {
     }
 
     render() {
-        const { isAuth, history, user } = this.props;
+        const { isAuth, history, user, logout } = this.props;
         const mainApp = (
             <ConnectedRouter history={ history }>
                 <div>
-                    <Navbar isAuth={ isAuth } user={ user } />
+                    <Navbar isAuth={ isAuth } user={ user } logout={ logout } />
                     <MainContainer>
                         <Container>
                             <MainRouter history={ history } isAuth={ isAuth } />
