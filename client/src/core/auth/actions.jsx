@@ -98,7 +98,7 @@ export function signup(username, email, password) {
         Authorization: 'Basic d2ViYXBw'
     };
     return (dispatch) => {
-        axios.post(`${apiHost}/auth/signup`, { username, password, email }, { headers })
+        axios.post(`${apiHost}/auth/signup`, { username, password, email }, { headers, withCredentials: true })
             .then((res) => {
                 const { data } = res;
                 setAuthCookies(data);

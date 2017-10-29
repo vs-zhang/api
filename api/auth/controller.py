@@ -72,7 +72,7 @@ def signup():
         client = rpc.client.get(ecoded_cid)
         user = rpc.user.create(username, email, password)
         refresh_token = rpc.refresh_token.create(user['id'], client['id'], ip_address, user_agent)
-        access_token = rpc.access_token.encode(user['id'])
+        access_token = rpc.access_token.encode(user)
         token = encode_refresh_token(refresh_token['id'])
         result = {
             'token_type': 'bearer',

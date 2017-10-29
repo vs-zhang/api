@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Button, Checkbox, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 import { authActions } from '../../../core/auth';
 
@@ -39,6 +40,7 @@ class LoginPage extends Component {
 
     render() {
         const { username, password } = this.state;
+        const signUpText = 'Don\'t Have Account? Sign Up one.';
         return (
             <DocumentTitle title="Login">
                 <Grid centered columns={ 4 }>
@@ -51,6 +53,7 @@ class LoginPage extends Component {
                                     <Field>
                                         <Checkbox label="I agree to the Terms and Conditions" />
                                     </Field>
+                                    <Link to="/signup">{ signUpText }</Link>
                                     <Button type="submit">Submit</Button>
                                 </Form>
                             </div>
