@@ -1,13 +1,15 @@
 import * as axios from 'axios';
 import Cookies from 'universal-cookie';
 import jwtDecode from 'jwt-decode';
+import * as constants from '../../Constants';
+
 import {
     LOGIN_SUCCESS,
     SIGN_UP_SUCCESS,
     SIGN_OUT_SUCCESS,
 } from './action-types';
 
-const apiHost = 'https://api.dev.com';
+const apiHost = constants.API_HOST;
 
 function setAuthCookies(userData) {
     const { access_token } = userData;

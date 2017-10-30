@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const DotenvPlugin = require('webpack-dotenv-plugin');
 
 module.exports = {
     devtool: 'cheap-module-source-map',
@@ -52,6 +53,10 @@ module.exports = {
         ]
     },
     plugins: [
+        new DotenvPlugin({
+            sample: './.env.local',
+            path: './.env.local'
+        }),
         new HtmlWebpackPlugin({
             chunkSortMode: 'dependency',
             filename: 'index.html',

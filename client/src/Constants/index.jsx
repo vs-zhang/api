@@ -1,4 +1,4 @@
-const ROUTERS = {
+export const ROUTERS = {
     LOGIN: '/login',
     SINGUP: '/signup',
     HOME: '/home',
@@ -6,6 +6,4 @@ const ROUTERS = {
     PROFILE: '/settings/profile'
 };
 
-export {
-    ROUTERS,
-};
+export const API_HOST = process.env.API_HOST;
