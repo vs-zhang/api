@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from nameko.standalone.rpc import ClusterRpcProxy
 from utils import encode_refresh_token, decode_refresh_token
-from constants import CONFIG
+from constants import CONFIG, DOMAIN
 
 auth = Blueprint('auth', __name__)
 
@@ -41,7 +41,7 @@ def oauth_token():
             print 'Wrong grant type'
 
         res = jsonify(result)
-        res.set_cookie('_rt', token, domain=".dev.com", httponly=True, secure=True)
+        res.set_cookie('_rt', token, domain=DOMAIN, httponly=True, secure=True)
         return res, 200
 
 
@@ -56,7 +56,7 @@ def logout():
             'success': 'ok'
         }
         res = jsonify(result)
-        res.set_cookie('_rt', '', domain=".dev.com", httponly=True, secure=True)
+        res.set_cookie('_rt', '', domain=DOMAIN, httponly=True, secure=True)
         return res, 200
 
 
@@ -79,5 +79,5 @@ def signup():
             'access_token': access_token
         }
         res = jsonify(result)
-        res.set_cookie('_rt', token, domain=".dev.com", httponly=True, secure=True)
+        res.set_cookie('_rt', token, domain=DOMAIN, httponly=True, secure=True)
         return res, 200
