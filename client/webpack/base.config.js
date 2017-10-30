@@ -1,34 +1,14 @@
-const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-    devtool: 'cheap-module-source-map',
     entry: ['./src/main.jsx'],
-    devServer: {
-        hot: false,
-        inline: false,
-        host: '0.0.0.0',
-        publicPath: '/',
-        disableHostCheck: true,
-        historyApiFallback: true,
-        port: 8080,
-        contentBase: './src',
-    },
-    output: {
-        path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js',
-        publicPath: '/'
-    },
     resolve: {
         extensions: ['.js', '.jsx']
     },
     module: {
-        loaders: [
-            {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader'
-            },
+        rules: [
             {
                 test: /.jsx?$/,
                 exclude: [
@@ -56,6 +36,7 @@ module.exports = {
         new Dotenv({
             path: './.env.local'
         }),
+        new webpack.EnvironmentPlugin(['NODE_ENV']),
         new HtmlWebpackPlugin({
             chunkSortMode: 'dependency',
             filename: 'index.html',
@@ -64,6 +45,5 @@ module.exports = {
             inject: 'body',
             template: './src/index.tpl.html'
         })
-    ],
-    bail: true
+    ]
 };
