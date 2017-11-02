@@ -5,6 +5,20 @@ from constants import CONFIG, DOMAIN
 
 auth = Blueprint('auth', __name__)
 
+@auth.route('/tokens', methods=['GET'])
+def get_tokens():
+    token = request.cookies.get('_rt')
+    with ClusterRpcProxy(CONFIG) as rpc:
+        token_id = decode_refresh_token(token)
+        refresh_token = rpc.refresh_token.get(token_id)
+        tokens = rpc.refresh_token.get_tokens_by_uid(refresh_token['user_id'])
+        result = {
+            'tokens': tokens
+        }
+        res = jsonify(result)
+        return res, 200
+
+
 @auth.route('/token', methods=['POST'])
 def oauth_token():
     user_agent = request.headers.get('User-Agent')

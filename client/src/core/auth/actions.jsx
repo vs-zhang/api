@@ -42,6 +42,16 @@ export function initLoggedIn(userData) {
     return dispatch => dispatch(signInSuccess(userData));
 }
 
+export function getTokens() {
+    console.log('fire');
+    return (dispatch) => {
+        axios.get(`${apiHost}/auth/tokens`, { withCredentials: true })
+            .then((res) => {
+                console.log(res);
+            });
+    };
+}
+
 export function login(username, password) {
     const headers = {
         'Access-Control-Allow-Origin': '*',

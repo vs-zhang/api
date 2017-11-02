@@ -16,3 +16,6 @@ class RefreshTokenSchema(Schema):
     id = fields.UUID(required=True)
     user_id = fields.Int(required=True)
     client_id = fields.Int(required=True)
+    revoke = fields.Boolean(required=True)
+    ip_address = fields.Str(required=True)
+    user_agent = fields.Str(required=True)

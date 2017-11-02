@@ -15,6 +15,7 @@ class SettingsPage extends Component {
         location: PropTypes.object.isRequired,
         history: PropTypes.object.isRequired,
         match: PropTypes.object.isRequired,
+        getTokens: PropTypes.func.isRequired
     }
 
     componentWillMount() {
@@ -25,6 +26,8 @@ class SettingsPage extends Component {
 
     render() {
         const { match } = this.props;
+        console.log('render settings');
+        this.props.getTokens();
         return (
             <Grid columns={ 8 }>
                 <Row>
