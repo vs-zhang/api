@@ -44,8 +44,8 @@ class Navbar extends Component {
         const DropdownTrigger = () => (
             <Dropdown trigger={ trigger } pointing="top left" className="link item">
                 <Dropdown.Menu>
-                    <Dropdown.Item text="Settings" icon="settings" value="settings" onClick={ this.handleClickDropdown } />
-                    <Dropdown.Item text="Sign Out" icon="sign out" onClick={ logout }/>
+                    <Dropdown.Item text="Settings" icon="settings" value="settings/profile" onClick={ this.handleClickDropdown } />
+                    <Dropdown.Item text="Sign Out" icon="sign out" onClick={ logout } />
                 </Dropdown.Menu>
             </Dropdown>
         );

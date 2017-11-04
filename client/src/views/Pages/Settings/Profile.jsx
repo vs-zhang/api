@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import { Grid } from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import { authActions } from '../../../core/auth';
 
 const Column = Grid.Column;
 const Row = Grid.Row;
 
-class ProfilePage extends Component {
+export default class ProfilePage extends Component {
     render() {
         return (
             <DocumentTitle title="Profile">
@@ -24,5 +22,3 @@ class ProfilePage extends Component {
         );
     }
 }
-
-export default connect(null, authActions)(ProfilePage);

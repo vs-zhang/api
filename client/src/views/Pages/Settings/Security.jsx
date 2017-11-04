@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import { authActions } from '../../../core/auth';
 
 const Column = Grid.Column;
 const Row = Grid.Row;
 
-class SecurityPage extends Component {
+export default class SecurityPage extends Component {
     render() {
         return (
             <Grid columns={ 8 }>
@@ -21,5 +19,3 @@ class SecurityPage extends Component {
         );
     }
 }
-
-export default connect(null, authActions)(SecurityPage);

@@ -14,7 +14,7 @@ const apiHost = constants.API_HOST;
 function setAuthCookies(userData) {
     const { access_token } = userData;
     const cookies = new Cookies();
-    cookies.set('access_token', access_token, { secure: true });
+    cookies.set('access_token', access_token, { secure: true, path: '/' });
 }
 
 function signInSuccess(userData) {
@@ -43,7 +43,6 @@ export function initLoggedIn(userData) {
 }
 
 export function getTokens() {
-    console.log('fire');
     return (dispatch) => {
         axios.get(`${apiHost}/auth/tokens`, { withCredentials: true })
             .then((res) => {

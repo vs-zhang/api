@@ -19,15 +19,23 @@ class SettingsPage extends Component {
     }
 
     componentWillMount() {
-        if (this.props.location.pathname === '/settings') {
+        this.setDefaultRoute(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setDefaultRoute(nextProps);
+    }
+
+    setDefaultRoute = (props) => {
+        const { location } = props;
+        if (location.pathname === '/settings') {
             this.props.history.push('settings/profile');
         }
     }
 
     render() {
         const { match } = this.props;
-        console.log('render settings');
-        this.props.getTokens();
+        // this.props.getTokens();
         return (
             <Grid columns={ 8 }>
                 <Row>

@@ -1,4 +1,5 @@
 import { Record } from 'immutable';
+import Cookies from 'universal-cookie';
 import {
     SIGN_UP_SUCCESS,
     LOGIN_SUCCESS,
@@ -6,7 +7,7 @@ import {
 } from './action-types';
 
 export const AuthState = new Record({
-    authenticated: false,
+    authenticated: !!new Cookies().get('access_token'),
     id: null,
     email: null,
     username: null
