@@ -79,7 +79,7 @@ export function logout() {
         axios.post(`${apiHost}/auth/logout`, {}, { headers, withCredentials: true })
             .then(() => {
                 dispatch(signOutSuccess());
-                new Cookies().remove('access_token', { secure: true });
+                new Cookies().remove('access_token', { secure: true, path: '/' });
             });
     };
 }

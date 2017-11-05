@@ -14,7 +14,7 @@ import { isAuthenticated, getAuth, authActions } from '../core/auth';
 import { Navbar } from './Components';
 
 const MainContainer = styled.div`
-    padding-top: 50px
+    padding-top: 80px
 `;
 
 class App extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Menu } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router';
 import { authActions } from '../../../core/auth';
@@ -12,11 +12,12 @@ const Row = Grid.Row;
 
 class SettingsPage extends Component {
     static propTypes = {
-        location: PropTypes.object.isRequired,
-        history: PropTypes.object.isRequired,
         match: PropTypes.object.isRequired,
-        getTokens: PropTypes.func.isRequired
+        history: PropTypes.object.isRequired,
+        location: PropTypes.object.isRequired
     }
+
+    state = { activeItem: '/settings/profile' };
 
     componentWillMount() {
         this.setDefaultRoute(this.props);
@@ -29,23 +30,38 @@ class SettingsPage extends Component {
     setDefaultRoute = (props) => {
         const { location } = props;
         if (location.pathname === '/settings') {
-            this.props.history.push('settings/profile');
+            this.props.history.push('/settings/profile');
+        } else {
+            this.setState({ activeItem: location.pathname });
         }
+    }
+
+    handleItemClick = (e, { name }) => {
+        const { match } = this.props;
+        this.setState({ activeItem: name });
+        this.props.history.push(`${match.url}/${name}`);
     }
 
     render() {
         const { match } = this.props;
-        // this.props.getTokens();
+        const { activeItem } = this.state;
+
         return (
-            <Grid columns={ 8 }>
+            <Grid>
                 <Row>
-                    <Column>
+                    <Column width={ 4 }>
                         <div>
-                            Settings
+                            <Menu vertical>
+                                <Menu.Item name="profile" active={ activeItem === '/settings/profile' } onClick={ this.handleItemClick } />
+                                <Menu.Item name="security" active={ activeItem === '/settings/security' } onClick={ this.handleItemClick } />
+                            </Menu>
                         </div>
+                    </Column>
+                    <Column width={ 12 }>
                         <div>
                             <Route exact path={ `${match.url}/profile` } component={ ProfilePage } />
                             <Route exact path={ `${match.url}/security` } component={ SecurityPage } />
+                            <Route exact path={ `${match.url}/` } component={ ProfilePage } />
                         </div>
                     </Column>
                 </Row>
