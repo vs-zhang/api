@@ -5,14 +5,18 @@ import { createStore, applyMiddleware } from 'redux';
 import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 import App from './App';
 import reducers from '../core/reducers';
 // import { Loader } from './Components';
 
 const history = createHistory();
+const logger = createLogger({
+    collapsed: true
+});
 const store = createStore(
     reducers,
-    applyMiddleware(thunk, routerMiddleware(history))
+    applyMiddleware(thunk, logger, routerMiddleware(history))
 );
 
 if (module.hot) {

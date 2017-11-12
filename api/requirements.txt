@@ -10,12 +10,12 @@ Flask-Cors==3.0.3
 funcsigs==1.0.2
 functools32==3.2.3.post2
 greenlet==0.4.12
+gunicorn==19.7.1
 import-string==0.1.0
 itsdangerous==0.24
 Jinja2==2.9.6
 jsonschema==2.6.0
 kombu==3.0.37
-manage==0.1.13
 MarkupSafe==1.0
 mistune==0.7.4
 mock==2.0.0
