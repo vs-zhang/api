@@ -1,4 +1,4 @@
-FROM vszhang/api
+FROM node:7.10-slim
 
 ENV CODE_DIR /code
 
@@ -8,6 +8,6 @@ WORKDIR $CODE_DIR
 
 ADD . $CODE_DIR
 
-RUN pip install -r requirements.txt
+RUN npm install
 
-CMD [ "manage", "run" ]
+CMD [ "npm", "start" ]

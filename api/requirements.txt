@@ -1,6 +1,7 @@
 amqp==1.4.9
 anyjson==0.3.3
 click==6.7
+docopt==0.6.2
 enum-compat==0.0.2
 enum34==1.1.6
 eventlet==0.21.0
@@ -16,14 +17,17 @@ itsdangerous==0.24
 Jinja2==2.9.6
 jsonschema==2.6.0
 kombu==3.0.37
+manage==0.1.13
 MarkupSafe==1.0
 mistune==0.7.4
 mock==2.0.0
 nameko==2.6.0
 path.py==10.3.1
 pbr==3.0.1
+python-dotenv==0.7.1
 PyYAML==3.12
 requests==2.14.2
 six==1.10.0
 Werkzeug==0.12.2
 wrapt==1.10.10
+yarg==0.1.9

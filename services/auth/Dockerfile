@@ -1,4 +1,4 @@
-FROM python:2.7-wheezy
+FROM vszhang/service_auth
 
 ENV CODE_DIR /code
 

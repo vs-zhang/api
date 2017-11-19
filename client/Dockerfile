@@ -1,4 +1,4 @@
-FROM node:7.10-slim
+FROM vszhang/client
 
 ENV CODE_DIR /code
 
