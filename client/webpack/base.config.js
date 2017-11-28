@@ -37,7 +37,7 @@ module.exports = {
     },
     plugins: [
         new Dotenv({
-            path: './.env.local'
+            path: './env/.env.local'
         }),
         new webpack.EnvironmentPlugin(['NODE_ENV']),
         new HtmlWebpackPlugin({

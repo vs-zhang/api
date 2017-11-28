@@ -10,4 +10,6 @@ ADD . $CODE_DIR
 
 RUN pip install -r requirements.txt
 
-CMD [ "manage", "run" ]
+RUN ["chmod", "+x", "./entrypoint.sh"]
+
+ENTRYPOINT ["./entrypoint.sh"]

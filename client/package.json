@@ -4,7 +4,7 @@
   "description": "frond end",
   "main": "main.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.js --no-info",
+    "start": "NODE_ENV=development webpack-dev-server --config webpack/dev.config.js --no-info",
     "dev": "NODE_ENV=development webpack-dev-server --config webpack/dev.config.js --no-info",
     "lint": "eslint src"
   },
