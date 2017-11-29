@@ -19,3 +19,4 @@ class RefreshTokenSchema(Schema):
     revoke = fields.Boolean(required=True)
     ip_address = fields.Str(required=True)
     user_agent = fields.Str(required=True)
+    is_current = fields.Bool()

@@ -23,6 +23,10 @@ class SettingsPage extends Component {
         this.setDefaultRoute(this.props);
     }
 
+    componentDidMount() {
+        this.props.getTokens();
+    }
+
     componentWillReceiveProps(nextProps) {
         this.setDefaultRoute(nextProps);
     }

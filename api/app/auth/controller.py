@@ -11,7 +11,7 @@ def get_tokens():
     with ClusterRpcProxy(CONFIG) as rpc:
         token_id = decode_refresh_token(token)
         refresh_token = rpc.refresh_token.get(token_id)
-        tokens = rpc.refresh_token.get_tokens_by_uid(refresh_token['user_id'])
+        tokens = rpc.refresh_token.get_tokens(refresh_token['id'], refresh_token['user_id'])
         result = {
             'tokens': tokens
         }

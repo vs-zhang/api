@@ -1,5 +1,6 @@
 from nameko.rpc import rpc
 from nameko_sqlalchemy import DatabaseSession
+from sqlalchemy import case
 from ..models import Base, RefreshToken, Client
 from ..schemas import RefreshTokenSchema
 
@@ -29,8 +30,8 @@ class RefreshTokenService(object):
         return RefreshTokenSchema().dump(refresh_token).data
 
     @rpc
-    def get_tokens_by_uid(self, uid):
-        refresh_tokens = self.db.query(RefreshToken).filter_by(user_id = uid)
+    def get_tokens(self, id, uid):
+        refresh_tokens = self.db.query(RefreshToken.id, RefreshToken.ip_address, RefreshToken.user_agent, RefreshToken.user_id, case([(RefreshToken.id==id, True)], else_=False).label("is_current")).filter_by(user_id = uid, revoke = False)
         return TokensSchema.dump(refresh_tokens).data
 
     @rpc
