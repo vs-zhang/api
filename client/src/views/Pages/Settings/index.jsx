@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Menu } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 import { Route } from 'react-router';
-import { authActions } from '../../../core/auth';
 import ProfilePage from './Profile';
 import SecurityPage from './Security';
+// import { connect } from 'react-redux';
+// import { authActions } from '../../../core/auth';
 
 const Column = Grid.Column;
 const Row = Grid.Row;
@@ -21,10 +21,6 @@ class SettingsPage extends Component {
 
     componentWillMount() {
         this.setDefaultRoute(this.props);
-    }
-
-    componentDidMount() {
-        this.props.getTokens();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -74,4 +70,4 @@ class SettingsPage extends Component {
     }
 }
 
-export default connect(null, authActions)(SettingsPage);
+export default SettingsPage;

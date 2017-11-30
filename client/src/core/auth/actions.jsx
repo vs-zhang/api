@@ -7,6 +7,7 @@ import {
     LOGIN_SUCCESS,
     SIGN_UP_SUCCESS,
     SIGN_OUT_SUCCESS,
+    FETCH_TOKENS_SUCCESS,
 } from './action-types';
 
 const apiHost = constants.API_HOST;
@@ -38,6 +39,13 @@ function signOutSuccess() {
     };
 }
 
+function fetchTokensSuccess(tokens) {
+    return {
+        type: FETCH_TOKENS_SUCCESS,
+        payload: tokens
+    };
+}
+
 export function initLoggedIn(userData) {
     return dispatch => dispatch(signInSuccess(userData));
 }
@@ -46,7 +54,7 @@ export function getTokens() {
     return (dispatch) => {
         axios.get(`${apiHost}/auth/tokens`, { withCredentials: true })
             .then((res) => {
-                console.log(res);
+                dispatch(fetchTokensSuccess(res.data));
             });
     };
 }
