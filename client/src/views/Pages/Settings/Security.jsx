@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
-import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import parser from 'ua-parser-js';
 import { getAuth, authActions } from '../../../core/auth';
 
-const Column = Grid.Column;
-const Row = Grid.Row;
+const TokenElement = ({ token }) => {
+    const userAgent = token.get('user_agent');
+    const ua = parser(userAgent);
+    const { browser, os } = ua;
+    return (
+        <div>
+            { `${browser.name} ${os.name}` }
+        </div>
+    );
+};
+
+TokenElement.propTypes = {
+    token: PropTypes.object.isRequired
+};
 
 class SecurityPage extends Component {
     static propTypes = {
@@ -28,7 +40,9 @@ class SecurityPage extends Component {
             return null;
         }
         const tokenElements = [];
-        tokens.forEach(token => tokenElements.push(<div key={ token.get('id') }>{ token.get('user_agent') }</div>));
+        tokens.forEach(token => tokenElements.push(
+            <TokenElement key={ token.get('id') } token={ token } />
+        ));
         return (
             <DocumentTitle title="Security">
                 <div>
