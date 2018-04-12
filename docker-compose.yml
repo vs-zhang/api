@@ -87,7 +87,11 @@ services:
     image: jwilder/nginx-proxy
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - "/etc/nginx/vhost.d"
+      - "/usr/share/nginx/html"
+      - "./nginx/certs:/etc/nginx/certs"
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
     environment:
-      - DEFAULT_HOST=client.lan
+      - DEFAULT_HOST=https://client.lan
