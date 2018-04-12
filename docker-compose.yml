@@ -1,18 +1,19 @@
 version: "2"
+
 services:
   rabbit:
     container_name: rabbit
     image: rabbitmq:3-management
     ports:
-        - "15673:15672"
-        - "5673:5672"
+      - "15673:15672"
+      - "5673:5672"
     restart: always
 
   postgres:
     container_name: auth-db
     image: postgres
     ports:
-        - "5433:5432"
+      - "5433:5432"
     environment:
         POSTGRES_DB: "auth"
         POSTGRES_PASSWORD: "password"
@@ -23,15 +24,16 @@ services:
     container_name: client
     build: ./client
     ports:
-        - "8081:8080"
+      - "8081:8080"
     volumes:
-     - ./client:/code/
+      - ./client:/code/
     depends_on:
       - api
     links:
-        - api
+      - api
     environment:
-        - NODE_ENV=development
+      - NODE_ENV=development
+      - VIRTUAL_HOST=client.lan
     restart: always
 
   api:
@@ -52,6 +54,7 @@ services:
         RABBIT_PORT: "5672"
         RABBIT_MANAGEMENT_PORT: "15672"
         ENV: "development"
+        VIRTUAL_HOST: api.lan
     restart: always
 
   auth:
@@ -78,3 +81,13 @@ services:
         ENV: "development"
         SECRET_KEY: "SECRET"
     restart: always
+
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      - DEFAULT_HOST=client.lan

@@ -24,6 +24,7 @@ export function authReducer(state = new AuthState(), { payload, type }) {
             authenticated: true,
         });
     case SIGN_OUT_SUCCESS:
+        debugger
         return state.merge(new AuthState());
     case FETCH_TOKENS_SUCCESS:
         return state.merge({ ...payload });

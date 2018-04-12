@@ -5,3 +5,7 @@ export function getAuth(state) {
 export function isAuthenticated(state) {
     return getAuth(state).authenticated;
 }
+
+export function isUser(firstName) {
+    return firstName;
+}

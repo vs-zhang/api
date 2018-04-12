@@ -4,8 +4,8 @@
   "description": "frond end",
   "main": "main.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --config webpack/dev.config.js --no-info",
-    "dev": "NODE_ENV=development webpack-dev-server --config webpack/dev.config.js --no-info",
+    "dev": "NODE_ENV=development webpack-dev-server --config webpack/dev/local.config.js --no-info",
+    "docker": "NODE_ENV=development webpack-dev-server --config webpack/dev/docker.config.js --no-info",
     "lint": "eslint src"
   },
   "author": "Vincent Zhang",

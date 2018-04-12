@@ -10,4 +10,4 @@ ADD . $CODE_DIR
 
 RUN npm install
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "docker" ]

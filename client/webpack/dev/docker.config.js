@@ -1,5 +1,6 @@
 const merge = require('webpack-merge');
-const baseConfig = require('./base.config.js');
+const Dotenv = require('dotenv-webpack');
+const baseConfig = require('../base.config.js');
 
 module.exports = merge(baseConfig, {
     devtool: 'cheap-module-source-map',
@@ -20,5 +21,10 @@ module.exports = merge(baseConfig, {
                 loader: 'style-loader!css-loader'
             },
         ]
-    }
+    },
+    plugins: [
+        new Dotenv({
+            path: './env/.env.docker'
+        })
+    ]
 });

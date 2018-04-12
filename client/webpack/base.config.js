@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     entry: ['./src/main.jsx'],
@@ -36,9 +35,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new Dotenv({
-            path: './env/.env.local'
-        }),
         new webpack.EnvironmentPlugin(['NODE_ENV']),
         new HtmlWebpackPlugin({
             chunkSortMode: 'dependency',
