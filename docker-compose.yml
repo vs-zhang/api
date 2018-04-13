@@ -33,7 +33,7 @@ services:
       - api
     environment:
       - NODE_ENV=development
-      - VIRTUAL_HOST=client.lan
+      - VIRTUAL_HOST=app.local.connectbay.co
     restart: always
 
   api:
@@ -52,9 +52,10 @@ services:
         RABBIT_USER: "guest"
         RABBIT_HOST: "rabbit"
         RABBIT_PORT: "5672"
+        DOMAIN: .local.connectbay.co
         RABBIT_MANAGEMENT_PORT: "15672"
         ENV: "development"
-        VIRTUAL_HOST: api.lan
+        VIRTUAL_HOST: api.local.connectbay.co
     restart: always
 
   auth:
@@ -94,4 +95,4 @@ services:
       - "./nginx/certs:/etc/nginx/certs"
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
     environment:
-      - DEFAULT_HOST=https://client.lan
+      - DEFAULT_HOST=app.local.connectbay.co

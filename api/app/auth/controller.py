@@ -55,6 +55,7 @@ def oauth_token():
             print 'Wrong grant type'
 
         res = jsonify(result)
+        print DOMAIN
         res.set_cookie('_rt', token, domain=DOMAIN, httponly=True, secure=True)
         return res, 200
 
@@ -70,6 +71,7 @@ def logout():
             'success': 'ok'
         }
         res = jsonify(result)
+        print DOMAIN
         res.set_cookie('_rt', '', domain=DOMAIN, httponly=True, secure=True)
         return res, 200
 
