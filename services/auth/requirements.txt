@@ -33,5 +33,5 @@ sqlalchemy-mixins==0.2.1
 SQLAlchemy-Utils==0.32.14
 typing==3.6.1
 watchdog==0.8.3
-Werkzeug==0.12.2
+Werkzeug==0.15.3
 wrapt==1.10.10
