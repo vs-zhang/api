@@ -14,7 +14,7 @@ greenlet==0.4.12
 gunicorn==19.7.1
 import-string==0.1.0
 itsdangerous==0.24
-Jinja2==2.9.6
+Jinja2==2.11.3
 jsonschema==2.6.0
 kombu==3.0.37
 manage==0.1.13
