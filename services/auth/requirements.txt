@@ -21,7 +21,7 @@ path.py==10.3.1
 pathtools==0.1.2
 pbr==3.0.1
 psycopg2==2.7.1
-PyJWT==1.5.0
+PyJWT==2.4.0
 python-dateutil==2.6.0
 python-editor==1.0.3
 python-mimeparse==1.6.0
