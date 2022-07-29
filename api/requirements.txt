@@ -19,7 +19,7 @@ jsonschema==2.6.0
 kombu==3.0.37
 manage==0.1.13
 MarkupSafe==1.0
-mistune==0.7.4
+mistune==2.0.3
 mock==2.0.0
 nameko==2.6.0
 path.py==10.3.1
